@@ -59,8 +59,11 @@ html {
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+   /* Margin bottom by footer height */
+   margin-bottom: 60px;
+   width: 1400px;
+   height: 600px;
+   border: 3px solid black;
 }
 .footer {
   position: absolute;
@@ -69,3 +72,23 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.my {
+   margin-left: 1200px;
+}
+
+.main {
+   border: 3px solid black;
+   padding: 20px;
+   width: 1000px;
+   height: 400px;
+   float: left;
+   margin: 20px;
+}
+
+.login {
+   border: 3px solid black;
+   padding: 20px;
+   float: right;
+   margin: 20px;
+}  
