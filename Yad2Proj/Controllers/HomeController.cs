@@ -25,6 +25,7 @@ namespace Yad2Proj.Controllers
 
       public IActionResult Privacy()
       {
+         ViewBag.MainName = "Main Page";
          return View();
       }
 
