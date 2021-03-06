@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -23,6 +24,9 @@ namespace Yad2Proj
       public void ConfigureServices(IServiceCollection services)
       {
          services.AddControllersWithViews();
+
+         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+         .AddCookie();
       }
 
       // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -40,6 +44,7 @@ namespace Yad2Proj
 
          app.UseRouting();
 
+         app.UseAuthentication();
          app.UseAuthorization();
 
          app.UseEndpoints(endpoints =>
