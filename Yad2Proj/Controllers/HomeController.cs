@@ -6,34 +6,50 @@ using Yad2Proj.Models;
 
 namespace Yad2Proj.Controllers
 {
-    public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
-        private readonly EFRepositoryOf<int, Product> _products;
-        private readonly EFRepositoryOf<int, User> _users;
+   public class HomeController : Controller
+   {
+      private readonly ILogger<HomeController> _logger;
+      private readonly EFRepositoryOf<int, Product> _products;
+      private readonly EFRepositoryOf<int, User> _users;
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-            _products = new EFRepositoryOf<int, Product>();
-            _users = new EFRepositoryOf<int, User>();
-        }
+      public HomeController(ILogger<HomeController> logger)
+      {
+         _logger = logger;
+         _products = new EFRepositoryOf<int, Product>();
+         _users = new EFRepositoryOf<int, User>();
+      }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+      public IActionResult Index()
+      {
+         ViewBag.MainName = "Main Page";
+         return View();
+      }
 
-        public IActionResult Privacy()
-        {
-            ViewBag.MainName = "Main Page";
-            return View();
-        }
+      public IActionResult Privacy()
+      {
+         ViewBag.MainName = "Main Page";
+         return View();
+      }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+      [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+      public IActionResult Error()
+      {
+         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+      }
+
+      [HttpGet]
+      public IActionResult PersonalDetails()
+      {
+         ViewBag.MainName = "Personal Details";
+         User user = new User();
+         return View(user);
+      }
+
+      [HttpPost]
+      public IActionResult PersonalDetails(User user)
+      {
+         ViewBag.MainName = "Personal Details";
+         return View();
+      }
+   }
 }
