@@ -20,7 +20,6 @@ namespace Yad2Proj.Controllers
 
       public IActionResult Index()
       {
-         ViewBag.MainName = "Main Page";
          return View();
       }
 
@@ -34,21 +33,6 @@ namespace Yad2Proj.Controllers
       public IActionResult Error()
       {
          return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-      }
-
-      [HttpGet]
-      public IActionResult PersonalDetails()
-      {
-         ViewBag.MainName = "Personal Details";
-         User user = new User();
-         return View(user);
-      }
-
-      [HttpPost]
-      public IActionResult PersonalDetails(User user)
-      {
-         ViewBag.MainName = "Personal Details";
-         return View();
       }
    }
 }

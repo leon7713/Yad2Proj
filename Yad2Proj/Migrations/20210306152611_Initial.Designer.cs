@@ -10,7 +10,7 @@ using Yad2Proj.Data;
 namespace Yad2Proj.Migrations
 {
     [DbContext(typeof(ProgramDbContext))]
-    [Migration("20210307160832_Initial")]
+    [Migration("20210306152611_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
