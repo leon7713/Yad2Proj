@@ -49,6 +49,7 @@ namespace Yad2Proj.Controllers
       public IActionResult PersonalDetails(User user)
       {
          ViewBag.MainName = "Personal Details";
+         _users.Create(user);
          return View();
       }
    }
