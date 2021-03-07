@@ -91,4 +91,13 @@ body {
    padding: 20px;
    float: right;
    margin: 20px;
-}  
+   display: block;
+}
+
+.siteMap {
+   border: 3px solid black;
+   padding: 20px;
+   float: right;
+   margin: 20px;
+   display: block;
+}
