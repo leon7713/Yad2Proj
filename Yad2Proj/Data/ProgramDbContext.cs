@@ -5,12 +5,17 @@ namespace Yad2Proj.Data
 {
     public class ProgramDbContext : DbContext
     {
+        public ProgramDbContext()
+        {
+            
+        }
         public ProgramDbContext(DbContextOptions<ProgramDbContext> opts) : base(opts)
         {
             ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Product>().Property(x => x.Price).HasPrecision(18, 2);
