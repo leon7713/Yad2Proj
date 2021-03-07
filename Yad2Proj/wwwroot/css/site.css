@@ -91,4 +91,10 @@ body {
    padding: 20px;
    float: right;
    margin: 20px;
-}  
+}
+.productTile {
+    flex-wrap: wrap;
+    width: 200px;
+    border: 3px solid black;
+    margin: 20px;
+}
