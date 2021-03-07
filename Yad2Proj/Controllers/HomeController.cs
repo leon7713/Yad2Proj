@@ -35,17 +35,6 @@ namespace Yad2Proj.Controllers
             ViewBag.MainName = "Main Page";
             return View();
         }
-      public IActionResult Index()
-      {
-         ViewBag.MainName = "Main Page";
-         return View();
-      }
-
-      public IActionResult Privacy()
-      {
-         ViewBag.MainName = "Main Page";
-         return View();
-      }
 
       [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
       public IActionResult Error()
