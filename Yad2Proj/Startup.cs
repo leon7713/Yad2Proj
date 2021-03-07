@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Yad2Proj.Data;
+using Yad2Proj.Models;
 
 namespace Yad2Proj
 {
@@ -21,6 +22,9 @@ namespace Yad2Proj
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddScoped<IDbContextProvider, DbContextProvider>();
+            services.AddScoped<IRepositoryOf<int, Product>, EFRepositoryOf<int, Product>>();
+            services.AddScoped<IRepositoryOf<int, User>, EFRepositoryOf<int, User>>();
             services.AddDbContext<ProgramDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("myDb")));
         }
 

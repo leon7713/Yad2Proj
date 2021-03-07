@@ -9,7 +9,7 @@ namespace Yad2Proj.Data
     public interface IRepositoryOf<TKey, TEntity>
         where TEntity : class, new()
     {
-        IEnumerable<TEntity> ShowAll();
+        IEnumerable<TEntity> GetAll();
         TEntity GetById(TKey id);
         void Update(TKey id, TEntity Entity);
         void Delete(TKey id);

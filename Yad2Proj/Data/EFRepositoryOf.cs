@@ -10,13 +10,14 @@ namespace Yad2Proj.Data
     public class EFRepositoryOf<TKey , TEntity> : IRepositoryOf<TKey, TEntity> 
         where TEntity : class, new()
     {
-        private readonly DbContextProviderOf<ProgramDbContext> _dbContextProvider;
-        public EFRepositoryOf()
+        private readonly IDbContextProvider _dbContextProvider;
+        public EFRepositoryOf(IDbContextProvider dbContextProvider)
         {
+            _dbContextProvider = dbContextProvider;
         }
         public void Create(TEntity entity)
         {
-            using (var db = _dbContextProvider.Get())
+            using (var db = _dbContextProvider.GetDbContext())
             {
                 DbSet<TEntity> dbSet = db.Set<TEntity>();
                 dbSet.Add(entity);
@@ -26,7 +27,7 @@ namespace Yad2Proj.Data
 
         public void Delete(TKey id)
         {
-            using (var db = _dbContextProvider.Get())
+            using (var db = _dbContextProvider.GetDbContext())
             {
                 DbSet<TEntity> dbSet = db.Set<TEntity>();
                 var foundEntity = db.Find<TEntity>(id);
@@ -40,7 +41,7 @@ namespace Yad2Proj.Data
 
         public TEntity GetById(TKey id)
         {
-            using (var db = _dbContextProvider.Get())
+            using (var db = _dbContextProvider.GetDbContext())
             {
                 DbSet<TEntity> dbSet = db.Set<TEntity>();
                 var entity = dbSet.Find(id);
@@ -48,9 +49,9 @@ namespace Yad2Proj.Data
             }
         }
 
-        public IEnumerable<TEntity> ShowAll()
+        public IEnumerable<TEntity> GetAll()
         {
-            using (var db = _dbContextProvider.Get())
+            using (var db = _dbContextProvider.GetDbContext())
             {
                 DbSet<TEntity> dbSet = db.Set<TEntity>();
                 return dbSet.ToList<TEntity>();
@@ -59,7 +60,7 @@ namespace Yad2Proj.Data
 
         public void Update(TKey id, TEntity newEntity)
         {
-            using (var db = _dbContextProvider.Get())
+            using (var db = _dbContextProvider.GetDbContext())
             {
                 DbSet<TEntity> dbSet = db.Set<TEntity>();
                 var oldEntity = dbSet.Find(id);
