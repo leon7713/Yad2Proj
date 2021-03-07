@@ -1,7 +1,12 @@
-﻿@page
-@model Yad2Proj.Views.Home.ShowAllModel
+﻿@model IEnumerable<Product>
 @{
-    ViewBag.Title = ["Products List"];
+    ViewData["Title"] = "Products List";
 }
 <h3>This is the list of products</h3>
 
+    @foreach (var item in Model)
+    {
+    <div class="main">
+        <partial name="_Product" model="item" />
+    </div>
+    }

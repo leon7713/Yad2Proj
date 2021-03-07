@@ -11,7 +11,7 @@ namespace Yad2Proj.Data
     {
         public DbContext Get()
         {
-            return new TDbContext;
+            return new TDbContext();
         }
     }
 }
