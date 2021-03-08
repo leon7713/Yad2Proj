@@ -22,6 +22,7 @@ namespace Yad2Proj.Models
         public byte[] Image1 { get; set; }
         public byte[] Image2 { get; set; }
         public byte[] Image3 { get; set; }
+        public bool InCart { get; set; }
         public State State { get; set; }
 
     }
