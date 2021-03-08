@@ -3,13 +3,16 @@
     ViewData["Title"] = "Products List";
 }
 <h3>This is the list of products</h3>
-<div class="d-inline-flex p-2" >
+<div class="d-inline-flex p-2">
     @foreach (var item in Model)
     {
-        <div class="productTile">
-            <partial name="_Product" model="item" />
-        </div>
-    }
+        if (!item.InCart)
+        {
+            <div class="productTile">
+                <partial name="_Product" model="item" />
+            </div>
+        }
 
+    }
 </div>
     
