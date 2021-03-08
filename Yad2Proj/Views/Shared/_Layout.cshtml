@@ -14,11 +14,12 @@
       <h2>@ViewBag.MainName</h2><br />
    </header>
    <main role="main" class="pb-3">
-       <div><partial name="_Login" /></div>
-       <div><partial name="_SiteMap" /></div>
-       
-       
-       @RenderBody()
+      <div>
+         <partial name="_Login" />
+         <partial name="_SiteMap" />
+      </div>
+
+      @RenderBody()
    </main>
 
    <footer class="border-top footer text-muted">

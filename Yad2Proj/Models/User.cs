@@ -6,22 +6,37 @@ using System.Threading.Tasks;
 
 namespace Yad2Proj.Models
 {
-    public class User
-    {
-        [Key]
-        public int Id { get; set; }
-        [MaxLength(50, ErrorMessage = "FirstName must be 50 characters or less")]
-        public string FirstName { get; set; }
-        [MaxLength(50, ErrorMessage = "LastName must be 50 characters or less")]
-        public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
-        [MaxLength(50, ErrorMessage = "Email must be 50 characters or less")]
-        public string Email { get; set; }
-        [MaxLength(50, ErrorMessage = "UserName must be 50 characters or less")]
-        public string UserName { get; set; }
-        [MaxLength(50, ErrorMessage = "Password must be 50 characters or less")]
-        public string Password { get; set; }
-        public virtual ICollection<Product> ProductsOwned { get; set; }
-        public virtual ICollection<Product> ProductsBought { get; set; }
-    }
+   public class User
+   {
+      [Key]
+      public int Id { get; set; }
+
+      [Required(ErrorMessage ="Please enter your first name")]
+      [MaxLength(50, ErrorMessage = "FirstName must be 50 characters or less")]
+      public string FirstName { get; set; }
+
+      [Required(ErrorMessage = "Please enter your last name")]
+      [MaxLength(50, ErrorMessage = "LastName must be 50 characters or less")]
+      public string LastName { get; set; }
+
+      [Required(ErrorMessage = "Please choose your birth date")]
+      public DateTime BirthDate { get; set; }
+
+      [Required(ErrorMessage = "Please enter your email")]
+      [DataType(DataType.EmailAddress)]
+      [RegularExpression(@"\w + ([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage ="The email address is not entred in a correct format")]
+      [MaxLength(50, ErrorMessage = "Email must be 50 characters or less")]
+      public string Email { get; set; }
+
+      [Required(ErrorMessage = "Please enter your user name")]
+      [MaxLength(50, ErrorMessage = "UserName must be 50 characters or less")]
+      public string UserName { get; set; }
+
+      [Required(ErrorMessage = "Please enter your password")]
+      [MaxLength(50, ErrorMessage = "Password must be 50 characters or less")]
+      public string Password { get; set; }
+
+      public virtual ICollection<Product> ProductsOwned { get; set; }
+      public virtual ICollection<Product> ProductsBought { get; set; }
+   }
 }

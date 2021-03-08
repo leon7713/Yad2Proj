@@ -1,6 +1,7 @@
 ﻿@model User
 
 <form asp-controller="Home" asp-action="PersonalDetails" method="post">
+   <div asp-validation-summary="All" class="text-danger"></div>
    <label asp-for="FirstName">First Name:</label>
    <input asp-for="FirstName"><br />
    <label asp-for="LastName">Last Name:</label>
@@ -12,8 +13,10 @@
    <label asp-for="UserName">User Name:</label>
    <input asp-for="UserName"><br />
    <label asp-for="Password">Password:</label>
-   <input asp-for="Password"><br />
+   <input asp-for="Password" id="passOne"><br />
    <label asp-for="Password">Confirm Password:</label>
-   <input asp-for="Password"><br />
+   <input asp-for="Password" id="passTwo"><br />
+   <asp:CompareValidator ControlToValidate="passOne" ControlToCompare="passTwo"
+                         ErrorMessage="Password does not match!"></asp:CompareValidator>
    <button type="submit">Save</button>
 </form>
