@@ -9,17 +9,27 @@
 </head>
 <body>
    <header>
-      <h1 class="my">Yad2Proj</h1>
-      <h2 class="my">Logo</h2>
-      <h2>@ViewBag.MainName</h2><br />
+      <div class="row">
+         <div class="col-md-9">
+            <h2 class="main-name-header">@ViewBag.MainName</h2>
+         </div>
+         <div class="col-md-3">
+            <h1>Yad2Proj</h1>
+            <h2>Logo</h2>
+         </div>
+      </div>
+      <br />
    </header>
    <main role="main" class="pb-3">
-      <div>
-         <partial name="_Login" />
-         <partial name="_SiteMap" />
+      <div class="row">
+         <div class="col-md-9">
+            @RenderBody()
+         </div>
+         <div class="col-md-3">
+            <partial name="_Login" />
+            <partial name="_SiteMap" />
+         </div>
       </div>
-
-      @RenderBody()
    </main>
 
    <footer class="border-top footer text-muted">
