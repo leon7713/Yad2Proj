@@ -6,14 +6,14 @@ using Yad2Proj.Models;
 
 namespace Yad2Proj.Data
 {
-    public interface IRepositoryOf<TKey, TEntity>
-        where TEntity : class, new()
-    {
-        IEnumerable<TEntity> GetAll();
-        TEntity GetById(TKey id);
-        void Update(TKey id, TEntity Entity);
-        void Delete(TKey id);
-        void Create(TEntity Entity);
-
-    }
+   public interface IRepositoryOf<TKey, TEntity>
+       where TEntity : class, new()
+   {
+      IEnumerable<TEntity> GetAll();
+      TEntity GetById(TKey id);
+      void Update(TKey id, TEntity Entity);
+      void Delete(TKey id);
+      void Create(TEntity Entity);
+      //TEntity GetByUsernameAndPassword(string username, string password);
+   }
 }

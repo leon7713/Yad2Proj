@@ -19,12 +19,13 @@ namespace Yad2Proj.Models
       [MaxLength(50, ErrorMessage = "LastName must be 50 characters or less")]
       public string LastName { get; set; }
 
+      [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:d}")]
       [Required(ErrorMessage = "Please choose your birth date")]
       public DateTime BirthDate { get; set; }
 
       [Required(ErrorMessage = "Please enter your email")]
       [DataType(DataType.EmailAddress)]
-      [RegularExpression(@"\w + ([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*", ErrorMessage ="The email address is not entred in a correct format")]
+      [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage ="The email address is not entred in a correct format")]
       [MaxLength(50, ErrorMessage = "Email must be 50 characters or less")]
       public string Email { get; set; }
 

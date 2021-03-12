@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Collections;
@@ -8,6 +9,7 @@ using Yad2Proj.Models;
 
 namespace Yad2Proj.Controllers
 {
+   [Authorize] //no controller can be accessed if the user isn't authenticated
    public class HomeController : Controller
    {
       private readonly ILogger<HomeController> _logger;
@@ -21,16 +23,27 @@ namespace Yad2Proj.Controllers
          _users = users;
       }
 
+      [AllowAnonymous]
+      //[Authorize] //no controller can be accessed if the user isn't authenticated
       public IActionResult Index()
       {
          ViewBag.MainName = "Main Page";
          return View();
+
+         //var redirect = RedirectToAction();
+         //redirect.ActionName = "Login"; // or can use nameof("") like  nameof(YourAction);
+         //redirect.ControllerName = "Account"; // or can use nameof("") like  nameof(YourCtrl);
+         //return redirect;
       }
+
+      [AllowAnonymous]
       public IActionResult ShowAll()
       {
          var products = _products.GetAll();
          return View(products);
       }
+
+
       public IActionResult Privacy()
       {
          ViewBag.MainName = "Main Page";
@@ -44,6 +57,7 @@ namespace Yad2Proj.Controllers
       }
 
       [HttpGet]
+      [AllowAnonymous]
       public IActionResult PersonalDetails()
       {
          ViewBag.MainName = "Personal Details";
@@ -52,6 +66,7 @@ namespace Yad2Proj.Controllers
       }
 
       [HttpPost]
+      [AllowAnonymous]
       public IActionResult PersonalDetails(User user)
       {
          ViewBag.MainName = "Personal Details";
