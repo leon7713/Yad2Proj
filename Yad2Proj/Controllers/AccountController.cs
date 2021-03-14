@@ -18,7 +18,7 @@ namespace Yad2Proj.Controllers
       private readonly ILogger<AccountController> _logger;
       private readonly IRepositoryOf<int, Product> _products;
       private readonly IRepositoryOf<int, User> _users;
-      LoginModel model;
+      public LoginModel model;
 
       public AccountController(ILogger<AccountController> logger, IRepositoryOf<int, Product> products, IRepositoryOf<int, User> users)
       {
@@ -29,10 +29,10 @@ namespace Yad2Proj.Controllers
       }
 
       [AllowAnonymous]
-      public IActionResult Login(string returnUrl = "/")
+      public IActionResult Login()
       {
          //return View(new LoginModel { ReturnUrl = returnUrl });
-         return PartialView("_Login");
+         return View();
       }
 
       [HttpPost]
@@ -44,6 +44,8 @@ namespace Yad2Proj.Controllers
 
          if (user == null)
          {
+            ViewBag.loginErrorMessage = "Username or password isn't correct!";
+            PartialView("_Login", ViewBag.loginErrorMessage);
             var redir = RedirectToAction();
             redir.ActionName = "ShowAll"; // or can use nameof("") like  nameof(YourAction);
             redir.ControllerName = "Home"; // or can use nameof("") like  nameof(YourCtrl);

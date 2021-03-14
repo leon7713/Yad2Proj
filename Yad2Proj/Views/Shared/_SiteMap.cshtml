@@ -6,6 +6,6 @@
    <a>Items Card</a><br />
    @if (User.Identity.IsAuthenticated)
    {
-      <a>Add item</a>
+      <a asp-controller="Home" asp-action="AddItem">Add item</a><br />
    }
 </div>
