@@ -27,14 +27,13 @@ namespace Yad2Proj.Controllers
             _users = users;
             var p = products.GetById(4);
             
-            FileStream fs = new FileStream(@"C:\Users\yotam\Pictures\pic.jpg", FileMode.Open, FileAccess.Read);
-            MemoryStream ms = new MemoryStream();
+            //FileStream fs = new FileStream(@"C:\Users\yotam\Pictures\pic.jpg", FileMode.Open, FileAccess.Read);
+            //MemoryStream ms = new MemoryStream();
 
-            p.Image1 = new byte[fs.Length];
-            fs.Read(p.Image1, 0, (int)fs.Length);
-            ms.Write(p.Image1, 0, (int)fs.Length);
-            _products.Update(4, p);
-            _products.Update(5, p);
+            //p.Image1 = new byte[fs.Length];
+            //fs.Read(p.Image1, 0, (int)fs.Length);
+            //ms.Write(p.Image1, 0, (int)fs.Length);
+            //_products.Update(4, p);
         }
 
         [AllowAnonymous]
@@ -54,9 +53,6 @@ namespace Yad2Proj.Controllers
         [AllowAnonymous]
         public IActionResult ShowAll()
         {
-            //var u = _users.GetById(1);
-            //_products.Create(new Product()
-            //{ Title = "Product", Price = 100, ShortDesc = "New item", LongDesc = "Long description", Timestamp = BitConverter.GetBytes(DateTime.Now.Ticks), Owner = u });
             var products = _products.GetAll();
             return View(products);
         }

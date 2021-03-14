@@ -1,12 +1,10 @@
 ﻿@model Product
 @{
     ViewData["Title"] = "All Products";
-    string imgSrc = "";
-    if (Model.Image1 != null)
-    {
-        var base64 = Convert.ToBase64String(Model.Image1);
-        imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-    }
+    byte[] b = new byte[10];
+        var base64 = Convert.ToBase64String(Model.Image1 != null ? Model.Image1 : new byte[10]);
+        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+    
 
 }
 <h3>@Model.Title</h3>
