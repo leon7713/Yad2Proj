@@ -11,7 +11,6 @@ namespace Yad2Proj.Data
         }
         public ProgramDbContext(DbContextOptions<ProgramDbContext> opts) : base(opts)
         {
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
