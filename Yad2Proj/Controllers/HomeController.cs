@@ -11,12 +11,13 @@ using System;
 
 namespace Yad2Proj.Controllers
 {
-    [Authorize] //no controller can be accessed if the user isn't authenticated
-    public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IRepositoryOf<int, Product> _products;
-        private readonly IRepositoryOf<int, User> _users;
+   [Authorize] //no controller can be accessed if the user isn't authenticated
+   public class HomeController : Controller
+   {
+      private readonly ILogger<HomeController> _logger;
+      private readonly IRepositoryOf<int, Product> _products;
+      private readonly IRepositoryOf<int, User> _users;
+      public LoginModel model;
 
 
         public HomeController(ILogger<HomeController> logger, IRepositoryOf<int, Product> products, IRepositoryOf<int, User> users)
@@ -82,13 +83,29 @@ namespace Yad2Proj.Controllers
             return View(user);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public IActionResult PersonalDetails(User user)
-        {
-            ViewBag.MainName = "Personal Details";
-            _users.Create(user);
-            return View();
-        }
-    }
+      [HttpPost]
+      [AllowAnonymous]
+      public IActionResult PersonalDetails(User user)
+      {
+         ViewBag.MainName = "Personal Details";
+         _users.Create(user);
+         return View();
+      }
+
+      [Authorize] //no controller can be accessed if the user isn't authenticated
+      public IActionResult AddItem()
+      {
+         @ViewBag.MainName = "Add Item's Page";
+         Product product = new Product();
+         return View(product);
+      }
+
+      [HttpPost]
+      public IActionResult AddItem(Product product)
+      {
+         ViewBag.MainName = "Add Item's Page";
+         _products.Create(product);
+         return View();
+      }
+   }
 }

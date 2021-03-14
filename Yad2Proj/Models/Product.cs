@@ -7,7 +7,6 @@ namespace Yad2Proj.Models
     {
         [Key]
         public int Id { get; set; }
-
         public User Owner { get; set; }
         public User User { get; set; }
         [MaxLength(50, ErrorMessage = "Title must be 50 characters or less")]
