@@ -44,12 +44,20 @@ namespace Yad2Proj.Controllers
 
          if (user == null)
          {
-            ViewBag.loginErrorMessage = "Username or password isn't correct!";
-            PartialView("_Login", ViewBag.loginErrorMessage);
+            ViewBag.error = "Username or password isn't correct!";
+            //PartialView("_Login", ViewBag.loginErrorMessage);
             var redir = RedirectToAction();
-            redir.ActionName = "ShowAll"; // or can use nameof("") like  nameof(YourAction);
+            redir.ActionName = "Index"; // or can use nameof("") like  nameof(YourAction);
             redir.ControllerName = "Home"; // or can use nameof("") like  nameof(YourCtrl);
             return redir;
+
+            //ModelState.AddModelError("", "Username or password isn't correct!");
+            //return View("_Login");
+
+            //ViewBag.Message = "My Error";
+            ////return PartialView("_Layout");
+            //Redirect("_Layout");
+            //return default;
          }
          //return Unauthorized();
 

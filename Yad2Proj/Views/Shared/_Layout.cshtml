@@ -25,8 +25,11 @@
          <div class="col-md-9">
             @RenderBody()
          </div>
+         @*@{
+            ViewData["Message"] = ViewBag.Message;
+         }*@
          <div class="col-md-3">
-            <partial name="_Login" />
+            <partial name="_Login" view-data="ViewData"/>
             <partial name="_SiteMap" />
          </div>
       </div>

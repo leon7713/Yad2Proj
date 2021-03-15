@@ -19,7 +19,7 @@ namespace Yad2Proj.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Product>().Property(x => x.Price).HasPrecision(18, 2);
-            builder.Entity<User>().HasMany(x => x.ProductsOwned).WithOne(con => con.Owner).IsRequired();
+            builder.Entity<User>().HasMany(x => x.ProductsOwned).WithOne(con => con.Owner);
             builder.Entity<User>().HasMany(x => x.ProductsBought).WithOne(con => con.User);
 
             base.OnModelCreating(builder);
