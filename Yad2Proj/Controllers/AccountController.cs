@@ -84,5 +84,15 @@ namespace Yad2Proj.Controllers
          redirect.ControllerName = "Home"; // or can use nameof("") like  nameof(YourCtrl);
          return redirect;
       }
+
+      public async Task<IActionResult> Logout()
+      {
+         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+         var redirect = RedirectToAction();
+         redirect.ActionName = "ShowAll"; // or can use nameof("") like  nameof(YourAction);
+         redirect.ControllerName = "Home"; // or can use nameof("") like  nameof(YourCtrl);
+         return redirect;
+      }
    }
 }

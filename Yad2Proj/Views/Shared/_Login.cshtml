@@ -47,6 +47,7 @@ else
 {
 <div class="myBorder font-weight-bold">
    Wellcome
-   @User.Claims.FirstOrDefault().Value
+   @User.Claims.FirstOrDefault().Value<br />
+   <a asp-controller="Account" asp-action="Logout" class="btn btn-primary mt-3">Logout</a>
 </div>
 }

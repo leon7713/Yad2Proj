@@ -36,7 +36,7 @@ namespace Yad2Proj.Models
 
       [Required(ErrorMessage = "Please enter your password")]
       [MaxLength(50, ErrorMessage = "Password must be 50 characters or less")]
-      [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
+      //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
       public string Password { get; set; }
 
       [NotMapped]
