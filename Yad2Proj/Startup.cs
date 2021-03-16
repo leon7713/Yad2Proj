@@ -56,7 +56,7 @@ namespace Yad2Proj
          {
             endpoints.MapControllerRoute(
                    name: "default",
-                   pattern: "{controller=Home}/{action=Index}/{id?}");
+                   pattern: "{controller=Home}/{action=ShowAll}/{id?}");
          });
       }
    }
