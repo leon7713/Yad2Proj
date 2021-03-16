@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace Yad2Proj.Data
 {
@@ -43,12 +45,18 @@ namespace Yad2Proj.Data
             var entity = _dbSet.Find(id);
             return entity;
         }
+        public virtual IQueryable<TEntity> GetByIdJoin(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] children)
+        {
+            children.ToList().ForEach(x => _dbSet.Include(x).Load());
+            return _dbSet;
+        }
 
         public IEnumerable<TEntity> GetAll()
         {
+            DbSet<TEntity> set = _context.Set<TEntity>();
 
-            return _dbSet.ToList<TEntity>();
-
+            return set.ToList<TEntity>();
+            { }
         }
 
         public void Update(TKey id, TEntity newEntity)
