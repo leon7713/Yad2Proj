@@ -111,16 +111,13 @@ namespace Yad2Proj.Controllers
         [AllowAnonymous]
         public IActionResult Details(int id)
         {
-            dynamic mymodel = new ExpandoObject();
-            IQueryable<Product> p = _products.GetByIdJoin(p => p.Id == id, u => u.Owner);
-            if (p == null)
+            ViewBag.MainName = "More Details";
+            var productWithUser = _products.GetByIdJoin(p => p.Id == id, u => u.Owner).First();
+            if (productWithUser == null)
             {
                 NotFound();
             }
-            mymodel.User = p.First().Owner;
-            mymodel.Product = p.First();
-            var product = p.First();
-            return View(product);
+            return View(productWithUser);
         }
     }
 }
