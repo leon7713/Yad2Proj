@@ -36,12 +36,16 @@ namespace Yad2Proj.Models
 
       [Required(ErrorMessage = "Please enter your password")]
       [MaxLength(50, ErrorMessage = "Password must be 50 characters or less")]
+      [DataType(DataType.Password)]
+      [Display(Name = "Password")]
       //[RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,15}$")]
       public string Password { get; set; }
 
       [NotMapped]
       [Required]
       [Compare("Password")]
+      [DataType(DataType.Password)]
+      [Display(Name = "Confirm password")]
       public string ConfirmPassword { get; set; }
 
       public virtual ICollection<Product> ProductsOwned { get; set; }

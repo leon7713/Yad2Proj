@@ -21,22 +21,19 @@
                      <label>Password:</label>
                      <input type="password" class="form-control" placeholder="Password" name="Password" autocomplete="off">
                   </div>
-                  <div class="form-group login-remember">
+                  <div class="login-remember">
                      <label>
                         <input type="checkbox">
                         <strong>Remember Me</strong>
                      </label>
                   </div>
-                  @*<div>
-                     <label>@ViewBag.Message</label>
-                  </div>*@
+                  <div class="text-danger">
+                     @TempData["Message"]
+                  </div>
                   <div></div>
                   <div class="form-group">
-                     <button class="btn btn-primary">Login</button>
+                     <button class="btn btn-primary mt-1">Login</button>
                   </div>
-                  @*@{ 
-                     Layout = "_Layout";
-                  }*@
                </fieldset>
             </form>
          </div>
@@ -45,9 +42,9 @@
 }
 else
 {
-<div class="myBorder font-weight-bold">
-   Wellcome
-   @User.Claims.FirstOrDefault().Value<br />
-   <a asp-controller="Account" asp-action="Logout" class="btn btn-primary mt-3">Logout</a>
-</div>
+   <div class="myBorder font-weight-bold">
+      Wellcome
+      @User.Claims.FirstOrDefault().Value<br />
+      <a asp-controller="Account" asp-action="Logout" class="btn btn-primary mt-3">Logout</a>
+   </div>
 }

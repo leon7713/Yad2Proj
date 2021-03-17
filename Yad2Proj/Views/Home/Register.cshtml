@@ -1,10 +1,13 @@
 ﻿@model User
 
-<form asp-controller="Home" asp-action="PersonalDetails" method="post">
+<form action="@Url.Action("Register", "Home")" method="post">
    <div class="myBorder">
       <div asp-validation-summary="All" class="text-danger"></div>
-      <label asp-for="FirstName">First Name:</label>
-      <input asp-for="FirstName"><br />
+      <div>
+         <label asp-for="FirstName">First Name:</label>
+         <input asp-for="FirstName">
+      </div>
+      
       <label asp-for="LastName">Last Name:</label>
       <input asp-for="LastName"><br />
       <label asp-for="Email">Email:</label>
@@ -14,10 +17,11 @@
       <label asp-for="UserName">User Name:</label>
       <input asp-for="UserName"><br />
       <label asp-for="Password">Password:</label>
-      <input asp-for="Password"><br />
-      <label asp-for="ConfirmPassword">Confirm Password:</label>
-      <input asp-for="ConfirmPassword"><br />
+      <input asp-for="Password" type="password" /><br />
+      <label asp-for="ConfirmPassword"></label>
+      <input asp-for="ConfirmPassword" type="password" /><br />
       
-      <button type="submit" class="btn btn-sm btn-primary rounded-5">Save</button>
+      <button type="submit" class="btn btn-sm btn-primary rounded-5">Register</button>
+      <div class="text-danger mt-1">@ViewBag.ErrorMessage</div>
    </div>
 </form>
