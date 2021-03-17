@@ -7,34 +7,37 @@ using System.Linq;
 using Yad2Proj.Data;
 using Yad2Proj.Models;
 using Microsoft.Owin;
+using System.Collections.Generic;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Yad2Proj.Controllers
 {
-    [Authorize] //no controller can be accessed if the user isn't authenticated
-    public class HomeController : Controller
-    {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IRepositoryOf<int, Product> _products;
-        private readonly IRepositoryOf<int, User> _users;
-        public LoginModel model;
+   [Authorize] //no controller can be accessed if the user isn't authenticated
+   public class HomeController : Controller
+   {
+      private readonly ILogger<HomeController> _logger;
+      private readonly IRepositoryOf<int, Product> _products;
+      private readonly IRepositoryOf<int, User> _users;
+
+      public HomeController(ILogger<HomeController> logger, IRepositoryOf<int, Product> products, IRepositoryOf<int, User> users)
+      {
+         _logger = logger;
+         _products = products;
+         _users = users;
+         //var p = products.GetById(4);
+
+         //FileStream fs = new FileStream(@"C:\Users\yotam\Pictures\pic.jpg", FileMode.Open, FileAccess.Read);
+         //MemoryStream ms = new MemoryStream();
 
 
-        public HomeController(ILogger<HomeController> logger, IRepositoryOf<int, Product> products, IRepositoryOf<int, User> users)
-        {
-            _logger = logger;
-            _products = products;
-            _users = users;
-            //var p = products.GetById(4);
-
-            //FileStream fs = new FileStream(@"C:\Users\yotam\Pictures\pic.jpg", FileMode.Open, FileAccess.Read);
-            //MemoryStream ms = new MemoryStream();
-
-
-            //p.Image1 = new byte[fs.Length];
-            //fs.Read(p.Image1, 0, (int)fs.Length);
-            //ms.Write(p.Image1, 0, (int)fs.Length);
-            //_products.Update(4, p);
-        }
+         //p.Image1 = new byte[fs.Length];
+         //fs.Read(p.Image1, 0, (int)fs.Length);
+         //ms.Write(p.Image1, 0, (int)fs.Length);
+         //_products.Update(4, p);
+      }
 
       //[AllowAnonymous]
       [Authorize] //no controller can be accessed if the user isn't authenticated
@@ -50,13 +53,13 @@ namespace Yad2Proj.Controllers
          //return redirect;
       }
 
-        [AllowAnonymous]
-        public IActionResult ShowAll()
-        {
-            ViewBag.MainName = "All Products List";
-            var products = _products.GetAll();
-            return View(products);
-        }
+      [AllowAnonymous]
+      public IActionResult ShowAll()
+      {
+         ViewBag.MainName = "All Products List";
+         var products = _products.GetAll();
+         return View(products);
+      }
 
 
       public IActionResult Privacy()
@@ -73,66 +76,98 @@ namespace Yad2Proj.Controllers
 
       [HttpGet]
       [AllowAnonymous]
-      public IActionResult PersonalDetails()
+      public IActionResult Register()
       {
-         ViewBag.MainName = "Personal Details";
-         var user = new User();
+         ViewBag.MainName = "Register";
 
          if (User.Identity.IsAuthenticated)
          {
-            user = _users.GetAll().FirstOrDefault(x => x.UserName == @User.Claims.FirstOrDefault().Value);
+            return RedirectToAction("Index");
+         }
+
+         return View(new User());
+      }
+
+      [HttpPost]
+      [AllowAnonymous]
+      public async Task<IActionResult> Register(User user)
+      {
+         ViewBag.MainName = "Register";
+
+         if (ModelState.IsValid)
+         {
+            
+            var existUser = _users.GetAll().FirstOrDefault(u => u.UserName == user.UserName);
+
+            if (existUser == null)
+            {
+               _users.Create(user);
+               ModelState.Clear();
+
+                
+               var claims = new List<Claim>
+               {
+                   new Claim(ClaimTypes.NameIdentifier, user.UserName),
+                   new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                   new Claim(ClaimTypes.NameIdentifier, user.Password),
+               };
+
+               var identity = new ClaimsIdentity(claims,
+                   CookieAuthenticationDefaults.AuthenticationScheme);
+               var principal = new ClaimsPrincipal(identity);
+
+               await HttpContext.SignInAsync(
+                   CookieAuthenticationDefaults.AuthenticationScheme,
+                   principal,
+                   new AuthenticationProperties { IsPersistent = true });
+
+               //return LocalRedirect(model.ReturnUrl);
+
+               #region Save user id to cookie
+               Response.Cookies.Append("UserId", $"{user.Id}");
+               #endregion
+
+               return RedirectToAction("ShowAll", "Home");
+            }
+            else
+            {
+               ViewBag.ErrorMessage = "User with this username already exists!";
+            }
          }
 
          return View(user);
       }
 
-      [HttpPost]
-      [AllowAnonymous]
-      public IActionResult PersonalDetails(User user)
+      [Authorize] //no controller can be accessed if the user isn't authenticated
+      public IActionResult AddItem()
       {
-         ViewBag.MainName = "Personal Details";
+         @ViewBag.MainName = "Add Item's Page";
+         Product product = new Product();
+         return View(product);
+      }
 
-         if (!User.Identity.IsAuthenticated)
-         {
-            if (ModelState.IsValid)
-            {
-               _users.Create(user);
-               ModelState.Clear();
-            }
-         }
-
+      [HttpPost]
+      public IActionResult AddItem(int id, Product product)
+      {
+         ViewBag.MainName = "Add Item's Page";
+         var userId = Request.Cookies["UserId"];
+         var owner = _users.GetById(int.Parse(userId));
+         product.Owner = owner;
+         _products.Create(product);
          return View();
       }
 
-        [Authorize] //no controller can be accessed if the user isn't authenticated
-        public IActionResult AddItem()
-        {
-            @ViewBag.MainName = "Add Item's Page";
-            Product product = new Product();
-            return View(product);
-        }
-
-        [HttpPost]
-        public IActionResult AddItem(int id, Product product)
-        {
-            ViewBag.MainName = "Add Item's Page";
-            var userId = Request.Cookies["UserId"];
-            var owner = _users.GetById(int.Parse(userId));
-            product.Owner = owner;
-            _products.Create(product);
-            return View();
-        }
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Details(int id)
-        {
-            ViewBag.MainName = "More Details";
-            var productWithUser = _products.GetByIdJoin(p => p.Id == id, u => u.Owner).First();
-            if (productWithUser == null)
-            {
-                NotFound();
-            }
-            return View(productWithUser);
-        }
-    }
+      [HttpGet]
+      [AllowAnonymous]
+      public IActionResult Details(int id)
+      {
+         ViewBag.MainName = "More Details";
+         var productWithUser = _products.GetByIdJoin(p => p.Id == id, u => u.Owner).First();
+         if (productWithUser == null)
+         {
+            NotFound();
+         }
+         return View(productWithUser);
+      }
+   }
 }
