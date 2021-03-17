@@ -7,7 +7,7 @@ namespace Yad2Proj.Data
     {
         public ProgramDbContext()
         {
-            
+            Database.EnsureCreated();
         }
         public ProgramDbContext(DbContextOptions<ProgramDbContext> opts) : base(opts)
         {
@@ -20,6 +20,7 @@ namespace Yad2Proj.Data
             builder.Entity<Product>().Property(x => x.Price).HasPrecision(18, 2);
             builder.Entity<User>().HasMany(x => x.ProductsOwned).WithOne(con => con.Owner);
             builder.Entity<User>().HasMany(x => x.ProductsBought).WithOne(con => con.User);
+
 
             base.OnModelCreating(builder);
         }

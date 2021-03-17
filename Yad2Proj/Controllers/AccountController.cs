@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -9,8 +10,6 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Yad2Proj.Data;
 using Yad2Proj.Models;
-using System.Web;
-using Microsoft.AspNetCore.Http;
 
 namespace Yad2Proj.Controllers
 {
@@ -79,23 +78,6 @@ namespace Yad2Proj.Controllers
                 new AuthenticationProperties { IsPersistent = model.RememberLogin });
 
             //return LocalRedirect(model.ReturnUrl);
-
-         var redirect = RedirectToAction();
-         redirect.ActionName = "ShowAll"; // or can use nameof("") like  nameof(YourAction);
-         redirect.ControllerName = "Home"; // or can use nameof("") like  nameof(YourCtrl);
-         return redirect;
-      }
-
-      public async Task<IActionResult> Logout()
-      {
-         await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
-         var redirect = RedirectToAction();
-         redirect.ActionName = "ShowAll"; // or can use nameof("") like  nameof(YourAction);
-         redirect.ControllerName = "Home"; // or can use nameof("") like  nameof(YourCtrl);
-         return redirect;
-      }
-   }
             #region Save user id to cookie
             Response.Cookies.Append("UserId", $"{user.Id}");
             #endregion
@@ -104,5 +86,18 @@ namespace Yad2Proj.Controllers
             redirect.ControllerName = "Home"; // or can use nameof("") like  nameof(YourCtrl);
             return redirect;
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var redirect = RedirectToAction();
+            redirect.ActionName = "ShowAll"; // or can use nameof("") like  nameof(YourAction);
+            redirect.ControllerName = "Home"; // or can use nameof("") like  nameof(YourCtrl);
+            return redirect;
+        }
     }
+
+
 }
+    
