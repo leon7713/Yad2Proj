@@ -51,17 +51,14 @@ namespace Yad2Proj.Data
             return _dbSet;
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll()
         {
-            DbSet<TEntity> set = _context.Set<TEntity>();
-
-            return set.ToList<TEntity>();
-            { }
+            return _dbSet;
         }
 
         public void Update(TKey id, TEntity newEntity)
         {
-            _dbSet.Attach(newEntity);
+            var entity = _dbSet.Attach(newEntity);
             _context.Entry(newEntity).State = EntityState.Modified;
         }
 

@@ -8,7 +8,7 @@ namespace Yad2Proj.Data
     public interface IRepositoryOf<TKey, TEntity>
        where TEntity : class, new()
     {
-        IEnumerable<TEntity> GetAll();
+        IQueryable<TEntity> GetAll();
         TEntity GetById(TKey id);
         IQueryable<TEntity> GetByIdJoin(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] children);
         void Update(TKey id, TEntity Entity);
