@@ -102,10 +102,10 @@ namespace Yad2Proj.Controllers
         {
             ViewBag.MainName = "Register";
 
-            if (ModelState.IsValid)
-            {
+         if (ModelState.IsValid)
+         {
 
-                var existUser = _users.GetAll().FirstOrDefault(u => u.UserName == user.UserName);
+            var existUser = _users.GetAll().FirstOrDefault(u => u.UserName == user.UserName);
 
                 if (existUser == null)
                 {
@@ -113,7 +113,7 @@ namespace Yad2Proj.Controllers
                     ModelState.Clear();
 
 
-                    var claims = new List<Claim>
+               var claims = new List<Claim>
                {
                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
