@@ -58,11 +58,15 @@ html {
   min-height: 100%;
 }
 
+header {
+   height: 90px;
+}
+
 body {
    /* Margin bottom by footer height */
    margin-bottom: 60px;
-   height: 670px;
-   border: 3px solid black;
+   height: auto;
+   /*border: 1px solid black;*/
 }
 .footer {
   position: absolute;

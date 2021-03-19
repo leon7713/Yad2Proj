@@ -1,28 +1,36 @@
 ﻿@model Product
 
 <form asp-controller="Product" asp-action="AddItem" method="post" enctype="multipart/form-data">
-   <div class="myBorder">
+   <div class="myBorder form-group">
       <div asp-validation-summary="All" class="text-danger"></div>
-      @*<label asp-for="Id">ID:</label>
-      <input asp-for="Id"><br />*@
-      @*<label asp-for="Owner">Owner:</label>
-      <input asp-for="Owner"><br />
-      <label asp-for="User">User:</label>
-      <input asp-for="User"><br />*@
-      <label asp-for="Title">Title:</label>
-      <input asp-for="Title"><br />
-      <label asp-for="ShortDesc">Short description:</label>
-      <input asp-for="ShortDesc"><br />
-      <label asp-for="LongDesc">Long description:</label>
-      <input asp-for="LongDesc"><br />
-      <label asp-for="Price">Price:</label>
-      <input asp-for="Price"><br />
-      <label asp-for="Image1">Image one:</label>
-      <input type="file" asp-for="Image1"><br />
-      <label asp-for="Image2">Image two:</label>
-      <input type="file" asp-for="Image2"><br />
-      <label asp-for="Image3">Image three:</label>
-      <input type="file" asp-for="Image3"><br />
-      <button type="submit" class="btn btn-primary">Save</button>
+      <div>
+         <label asp-for="Title">Title:</label>
+         <input asp-for="Title" class="form-control input-sm">
+      </div>
+      <div>
+         <label asp-for="ShortDesc">Short description:</label>
+         <input asp-for="ShortDesc" class="form-control input-sm">
+      </div>
+      <div>
+         <label asp-for="LongDesc">Long description:</label>
+         <input asp-for="LongDesc" class="form-control input-sm">
+      </div>
+      <div>
+         <label asp-for="Price">Price:</label>
+         <input asp-for="Price" class="form-control input-sm">
+      </div>
+      <div>
+         <label asp-for="Image1">Image one:</label>
+         <input type="file" asp-for="Image1" class="form-control input-sm">
+      </div>
+      <div>
+         <label asp-for="Image2">Image two:</label>
+         <input type="file" asp-for="Image2" class="form-control input-sm">
+      </div>
+      <div>
+         <label asp-for="Image3">Image three:</label>
+         <input type="file" asp-for="Image3" class="form-control input-sm">
+      </div>
+      <button type="submit" class="btn btn-sm btn-primary rounded-5 mt-1">Save</button>
    </div>
 </form>
