@@ -51,7 +51,7 @@ namespace Yad2Proj.Controllers
          var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.UserName),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Authentication, user.Id.ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Password),
             };
 
@@ -99,8 +99,8 @@ namespace Yad2Proj.Controllers
          await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
          var redirect = RedirectToAction();
-         redirect.ActionName = "ShowAll"; // or can use nameof("") like  nameof(YourAction);
-         redirect.ControllerName = "Home"; // or can use nameof("") like  nameof(YourCtrl);
+         redirect.ActionName = "ShowAll"; 
+         redirect.ControllerName = "Home";
          return redirect;
       }
    }

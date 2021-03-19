@@ -17,15 +17,15 @@ using Yad2Proj.Extension;
 
 namespace Yad2Proj.Controllers
 {
-   [Authorize] //no controller can be accessed if the user isn't authenticated
+   [Authorize]
    public class ProductController : Controller
    {
       private readonly ILogger<HomeController> _logger;
       private readonly IRepositoryOf<int, Product> _products;
       private readonly IRepositoryOf<int, User> _users;
 
-      public ProductController(ILogger<HomeController> logger, 
-         IRepositoryOf<int, Product> products, 
+      public ProductController(ILogger<HomeController> logger,
+         IRepositoryOf<int, Product> products,
          IRepositoryOf<int, User> users)
       {
          _logger = logger;
@@ -47,19 +47,9 @@ namespace Yad2Proj.Controllers
       public IActionResult AddItem()
       {
          ViewBag.MainName = "Add Item's Page";
-         
+
          Product product = new Product();
          return View(product);
-      }
-
-      public IActionResult GetImage1(int id)
-      {
-         var product = _products.GetById(id);
-
-         if (product == null || product.Image1 == null)
-            return NotFound();
-
-         return new FileContentResult(product.Image1, "image/jpg");
       }
 
       [HttpPost]
@@ -70,6 +60,7 @@ namespace Yad2Proj.Controllers
          if (ModelState.IsValid)
          {
             var userId = int.Parse(Request.Cookies["UserId"]); //34
+            //int userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "Authentication").Value);
             var owner = _users.GetById(userId);
 
             var product = new Product
@@ -84,6 +75,7 @@ namespace Yad2Proj.Controllers
                InCart = productViewModel.InCart,
                State = productViewModel.State,
             };
+
             if (productViewModel.Image1 != null)
                product.Image1 = await productViewModel.Image1.GetBytes();
             if (productViewModel.Image2 != null)
@@ -95,6 +87,17 @@ namespace Yad2Proj.Controllers
          }
 
          return View();
+      }
+
+      [AllowAnonymous]
+      public IActionResult GetImage1(int id)
+      {
+         var product = _products.GetById(id);
+
+         if (product == null || product.Image1 == null)
+            return NotFound();
+
+         return new FileContentResult(product.Image1, "image/jpg");
       }
 
       [HttpGet]

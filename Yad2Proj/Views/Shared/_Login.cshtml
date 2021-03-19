@@ -8,10 +8,7 @@
             <h6 class="panel-title">Please enter your credentials</h6>
          </div>
          <div class="panel-body">
-
             <form asp-controller="Account" asp-action="Login" method="post">
-               @*<input type="hidden" asp-for="ReturnUrl" />*@
-
                <fieldset>
                   <div class="form-group">
                      <label>Username:</label>
@@ -27,7 +24,7 @@
                         <strong>Remember Me</strong>
                      </label>
                   </div>
-                  <div class="text-danger">
+                  <div class="text-danger font-weight-bold">
                      @TempData["Message"]
                   </div>
                   <div></div>

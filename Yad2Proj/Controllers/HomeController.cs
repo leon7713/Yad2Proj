@@ -39,8 +39,7 @@ namespace Yad2Proj.Controllers
          //_products.Update(4, p);
       }
 
-      //[AllowAnonymous]
-      [Authorize] //no controller can be accessed if the user isn't authenticated
+      [Authorize]
       public IActionResult Index()
       {
          ViewBag.MainName = "Main Page";
