@@ -69,7 +69,7 @@ namespace Yad2Proj.Controllers
 
          if (ModelState.IsValid)
          {
-            var userId = 34; // int.Parse(Request.Cookies["UserId"]);
+            var userId = int.Parse(Request.Cookies["UserId"]); //34
             var owner = _users.GetById(userId);
 
             var product = new Product

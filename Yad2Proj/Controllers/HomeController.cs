@@ -44,13 +44,7 @@ namespace Yad2Proj.Controllers
       public IActionResult Index()
       {
          ViewBag.MainName = "Main Page";
-
          return View();
-
-         //var redirect = RedirectToAction();
-         //redirect.ActionName = "Login"; // or can use nameof("") like  nameof(YourAction);
-         //redirect.ControllerName = "Account"; // or can use nameof("") like  nameof(YourCtrl);
-         //return redirect;
       }
 
       [AllowAnonymous]
@@ -136,6 +130,13 @@ namespace Yad2Proj.Controllers
          }
 
          return View(user);
-      }      
+      }
+
+      [AllowAnonymous]
+      public IActionResult AboutUs()
+      {
+         ViewBag.MainName = "About Us";
+         return View();
+      }
    }
 }
