@@ -96,7 +96,7 @@ namespace Yad2Proj.Controllers
 
          if (ModelState.IsValid)
          {
-            
+
             var existUser = _users.GetAll().FirstOrDefault(u => u.UserName == user.UserName);
 
             if (existUser == null)
@@ -104,7 +104,7 @@ namespace Yad2Proj.Controllers
                _users.Create(user);
                ModelState.Clear();
 
-                
+
                var claims = new List<Claim>
                {
                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
@@ -136,38 +136,6 @@ namespace Yad2Proj.Controllers
          }
 
          return View(user);
-      }
-
-      [Authorize] //no controller can be accessed if the user isn't authenticated
-      public IActionResult AddItem()
-      {
-         @ViewBag.MainName = "Add Item's Page";
-         Product product = new Product();
-         return View(product);
-      }
-
-      [HttpPost]
-      public IActionResult AddItem(int id, Product product)
-      {
-         ViewBag.MainName = "Add Item's Page";
-         var userId = Request.Cookies["UserId"];
-         var owner = _users.GetById(int.Parse(userId));
-         product.Owner = owner;
-         _products.Create(product);
-         return View();
-      }
-
-      [HttpGet]
-      [AllowAnonymous]
-      public IActionResult Details(int id)
-      {
-         ViewBag.MainName = "More Details";
-         var productWithUser = _products.GetByIdJoin(p => p.Id == id, u => u.Owner).First();
-         if (productWithUser == null)
-         {
-            NotFound();
-         }
-         return View(productWithUser);
-      }
+      }      
    }
 }

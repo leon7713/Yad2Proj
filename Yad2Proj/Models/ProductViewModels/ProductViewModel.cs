@@ -1,36 +1,42 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Yad2Proj.Models
+namespace Yad2Proj.Models.ProductViewModels
 {
-   public class Product
+   public class ProductViewModel
    {
-      [Key]
       public int Id { get; set; }
 
       public User Owner { get; set; }
 
       public User User { get; set; }
+
       [MaxLength(50, ErrorMessage = "Title must be 50 characters or less")]
       public string Title { get; set; }
+
       [MaxLength(500, ErrorMessage = "Short description must be 500 characters or less")]
       public string ShortDesc { get; set; }
+
       [MaxLength(4000, ErrorMessage = "Long description must be 4000 characters or less")]
       public string LongDesc { get; set; }
+
       [Timestamp]
       public byte[] Timestamp { get; set; }
-      public decimal Price { get; set; }
-      public byte[] Image1 { get; set; }
-      public byte[] Image2 { get; set; }
-      public byte[] Image3 { get; set; }
-      public bool InCart { get; set; }
-      public State State { get; set; }
 
-   }
-   public enum State
-   {
-      Available,
-      Sold,
-      Deleted
+      public decimal Price { get; set; }
+
+      public IFormFile Image1 { get; set; }
+
+      public IFormFile Image2 { get; set; }
+
+      public IFormFile Image3 { get; set; }
+
+      public bool InCart { get; set; }
+
+      public State State { get; set; }
    }
 }
