@@ -68,6 +68,7 @@ namespace Yad2Proj.Controllers
                //Id = productViewModel.Id,
                Owner = owner,
                User = owner,
+               Title = productViewModel.Title,
                ShortDesc = productViewModel.ShortDesc,
                LongDesc = productViewModel.LongDesc,
                Price = productViewModel.Price,
