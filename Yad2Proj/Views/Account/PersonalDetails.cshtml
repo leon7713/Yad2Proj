@@ -1,38 +1,41 @@
 ﻿@model User
 
 <form asp-controller="Account" asp-action="PersonalDetails" method="post">
-   <div class="myBorder form-group">
-      <div asp-validation-summary="All" class="text-danger"></div>
-      <div>
-         <label asp-for="FirstName">First Name:</label>
-         <input asp-for="FirstName" class="form-control input-sm">
-      </div>
-      <div>
-         <label asp-for="LastName">Last Name:</label>
-         <input asp-for="LastName" class="form-control input-sm">
-      </div>
-      <div>
-         <label asp-for="Email">Email:</label>
-         <input asp-for="Email" class="form-control input-sm">
-      </div>
-      <div>
-         <label asp-for="BirthDate">BirthDate:</label>
-         <input type="date" asp-for="BirthDate" class="form-control input-sm">
-      </div>
-      <div>
-         <label asp-for="UserName">User Name:</label>
-         <input asp-for="UserName" class="form-control input-sm" readonly="readonly">
-      </div>
-      <div>
-         <label asp-for="Password">Password:</label>
-         <input asp-for="Password" type="password" class="form-control input-sm" />
-      </div>
-      <div>
-         <label asp-for="ConfirmPassword"></label>
-         <input asp-for="ConfirmPassword" type="password" class="form-control input-sm" />
-      </div>
+    <div class="myBorder form-group">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div>
+            <label asp-for="FirstName">First Name:</label>
+            <input asp-for="FirstName" class="form-control input-sm">
+        </div>
+        <div>
+            <label asp-for="LastName">Last Name:</label>
+            <input asp-for="LastName" class="form-control input-sm">
+        </div>
+        <div>
+            <label asp-for="Email">Email:</label>
+            <input asp-for="Email" class="form-control input-sm">
+        </div>
+        <div>
+            <label asp-for="BirthDate">BirthDate:</label>
+            <input type="date" asp-for="BirthDate" class="form-control input-sm">
+        </div>
+        <div>
+            <label asp-for="UserName">User Name:</label>
+            <input asp-for="UserName" class="form-control input-sm" readonly="readonly">
+        </div>
+        <div>
+            <label asp-for="Password">Password:</label>
+            <input asp-for="Password" type="password" class="form-control input-sm" />
+        </div>
+        <div>
+            <label asp-for="ConfirmPassword"></label>
+            <input asp-for="ConfirmPassword" type="password" class="form-control input-sm" />
+        </div>
+    
+            <input asp-for="Id" type="hidden" class="form-control input-sm" />
+      
 
-      <button type="submit" class="btn btn-sm btn-primary rounded-5 mt-1">Update</button>
-      <div class="text-danger mt-1">@ViewBag.ErrorMessage</div>
-   </div>
+        <button type="submit" class="btn btn-sm btn-primary rounded-5 mt-1">Update</button>
+        <div class="text-danger mt-1">@ViewBag.ErrorMessage</div>
+    </div>
 </form>
