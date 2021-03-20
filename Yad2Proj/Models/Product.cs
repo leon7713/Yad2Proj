@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Yad2Proj.Models
 {
-   public class Product
-   {
-      [Key]
-      public int Id { get; set; }
+    public class Product
+    {
+        [Key]
+        public int Id { get; set; }
 
-      public User Owner { get; set; }
+        public User Owner { get; set; }
 
       public User User { get; set; }
       [MaxLength(50, ErrorMessage = "Title must be 50 characters or less")]
@@ -26,11 +27,11 @@ namespace Yad2Proj.Models
       public bool InCart { get; set; }
       public State State { get; set; }
 
-   }
-   public enum State
-   {
-      Available,
-      Sold,
-      Deleted
-   }
+    }
+    public enum State
+    {
+        Available,
+        Sold,
+        Deleted
+    }
 }
