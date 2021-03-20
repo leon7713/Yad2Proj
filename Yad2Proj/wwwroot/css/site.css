@@ -104,3 +104,8 @@ body {
    margin-top: 20px;
    margin-left: 20px;
 }
+
+.main-products-wrapper {
+   display: flex;
+   flex-wrap: wrap;
+}

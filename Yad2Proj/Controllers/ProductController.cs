@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Yad2Proj.Data;
 using Yad2Proj.Extension;
@@ -11,7 +13,6 @@ using Yad2Proj.Models.ProductViewModels;
 
 namespace Yad2Proj.Controllers
 {
-   [Authorize]
    public class ProductController : Controller
    {
       private readonly ILogger<HomeController> _logger;
@@ -46,6 +47,7 @@ namespace Yad2Proj.Controllers
          return View(product);
       }
 
+      [Authorize]
       [HttpPost]
       public async Task<IActionResult> AddItem(ProductViewModel productViewModel)
       {
@@ -53,8 +55,13 @@ namespace Yad2Proj.Controllers
 
          if (ModelState.IsValid)
          {
-            var userId = int.Parse(Request.Cookies["UserId"]); //34
-                                                               //int userId = int.Parse(User.Claims.FirstOrDefault(x => x.Type == "Authentication").Value);
+            var userId = 0;
+
+            if (User.HasClaim(p => p.Type == ClaimTypes.Authentication))
+            {
+               userId = int.Parse(User.FindFirst(ClaimTypes.Authentication).Value);
+            }
+             
             var owner = _users.GetById(userId);
 
             var product = new Product
@@ -80,46 +87,66 @@ namespace Yad2Proj.Controllers
 
             _products.Create(product);
             //ShowSuccessPopup();
+
+            TempData["Message"] = "Product success added.";
+
+            return RedirectToAction(nameof(AddItem));
          }
 
          return View(new Product());
       }
 
-      [AllowAnonymous]
-      public IActionResult GetImage1(int id)
+      public IActionResult GetImage(int id, int size)
       {
          var product = _products.GetById(id);
 
-         if (product == null || product.Image1 == null)
-            return base.File("~/Contents/noImg.png", "image/jpg");
+         if (product == null)
+            return NotFound();
 
-         return new FileContentResult(product.Image1, "image/jpg");
+         byte[] image = null;
+
+         if (size == 1) image = product.Image1;
+         else if (size == 2) image = product.Image2;
+         else if (size == 3) image = product.Image3;
+
+         if (image == null)
+            return base.File("~/Contents/noImg.png", "image/png");
+
+         //Dictionary<string, string> extensionsWithMiMeType = new Dictionary<string, string>()
+         //{
+         //   {".jpeg", "image/jpeg"},
+         //   {".jpg", "image/jpeg"},
+         //   {".png", "image/png"},
+         //   {".gif", "image/gif"}
+         //};
+         //var fileExtension = System.IO.Path.GetExtension("filename.jpg").ToLower();
+
+         return new FileContentResult(image, "image/jpeg");
       }
 
-      [AllowAnonymous]
-      public IActionResult GetImage2(int id)
-      {
-         var product = _products.GetById(id);
+      //[AllowAnonymous]
+      //public IActionResult GetImage2(int id)
+      //{
+      //   var product = _products.GetById(id);
 
-         if (product == null || product.Image2 == null)
-            return base.File("~/Contents/noImg.png", "image/jpg");
+      //   if (product == null || product.Image2 == null)
+      //      return base.File("~/Contents/noImg.png", "image/jpg");
 
-         return new FileContentResult(product.Image2, "image/jpg");
-      }
+      //   return new FileContentResult(product.Image2, "image/jpg");
+      //}
 
-      [AllowAnonymous]
-      public IActionResult GetImage3(int id)
-      {
-         var product = _products.GetById(id);
+      //[AllowAnonymous]
+      //public IActionResult GetImage3(int id)
+      //{
+      //   var product = _products.GetById(id);
 
-         if (product == null || product.Image3 == null)
-            return base.File("~/Contents/noImg.png", "image/jpg");
+      //   if (product == null || product.Image3 == null)
+      //      return base.File("~/Contents/noImg.png", "image/jpg");
 
-         return new FileContentResult(product.Image3, "image/jpg");
-      }
+      //   return new FileContentResult(product.Image3, "image/jpg");
+      //}
 
       [HttpGet]
-      [AllowAnonymous]
       public IActionResult Details(int id)
       {
          ViewBag.MainName = "More Details";
@@ -130,9 +157,13 @@ namespace Yad2Proj.Controllers
          }
          return View(productWithUser);
       }
+
+      // ERROR FOR UNAUTHORIZED USERS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      [Authorize]
       public IActionResult Cart(int id)
       {
          ViewBag.MainName = "More Details";
+
          var userId = int.Parse(Request.Cookies["UserId"]);
          var owner = _users.GetById(userId);
          var productWithUser = _products.GetAll().Where(p => p.Owner == owner);

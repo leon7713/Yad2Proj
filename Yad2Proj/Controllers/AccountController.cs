@@ -89,9 +89,13 @@ namespace Yad2Proj.Controllers
          if (ModelState.IsValid)
          {
             _users.Update(user.Id, user);
+
+            TempData["Message"] = "User updated.";
+
+            return RedirectToAction(nameof(PersonalDetails));
          }
 
-         return View(new User());
+         return View(user);
       }
 
       public async Task<IActionResult> Logout()
@@ -104,10 +108,6 @@ namespace Yad2Proj.Controllers
          return redirect;
       }
    }
-
-
-
-
 }
 
 
