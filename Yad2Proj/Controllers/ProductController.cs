@@ -1,19 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Diagnostics;
-using System.Dynamic;
 using System.Linq;
-using Yad2Proj.Data;
-using Yad2Proj.Models;
-using Microsoft.Owin;
-using System.Collections.Generic;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Yad2Proj.Models.ProductViewModels;
+using Yad2Proj.Data;
 using Yad2Proj.Extension;
+using Yad2Proj.Models;
+using Yad2Proj.Models.ProductViewModels;
 
 namespace Yad2Proj.Controllers
 {
@@ -96,7 +89,7 @@ namespace Yad2Proj.Controllers
          var product = _products.GetById(id);
 
          if (product == null || product.Image1 == null)
-            return NotFound();
+            return base.File("~/Contents/noImg.png", "image/jpg");
 
          return new FileContentResult(product.Image1, "image/jpg");
       }
@@ -107,7 +100,7 @@ namespace Yad2Proj.Controllers
          var product = _products.GetById(id);
 
          if (product == null || product.Image2 == null)
-            return NotFound();
+            return base.File("~/Contents/noImg.png", "image/jpg");
 
          return new FileContentResult(product.Image2, "image/jpg");
       }
@@ -118,7 +111,7 @@ namespace Yad2Proj.Controllers
          var product = _products.GetById(id);
 
          if (product == null || product.Image3 == null)
-            return NotFound();
+            return base.File("~/Contents/noImg.png", "image/jpg");
 
          return new FileContentResult(product.Image3, "image/jpg");
       }
@@ -128,7 +121,11 @@ namespace Yad2Proj.Controllers
       public IActionResult Details(int id)
       {
          ViewBag.MainName = "More Details";
-         var productWithUser = _products.GetByIdJoin(p => p.Id == id, u => u.Owner).First();
+         var productWithUser = _products
+            .GetByIdJoin(p => p.Id == id, u => u.Owner)
+            .Where(p => p.Id == id)
+            .First();
+
          if (productWithUser == null)
          {
             NotFound();
