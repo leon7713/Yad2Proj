@@ -1,11 +1,9 @@
 ﻿@model Product
 
-@{
-   //ViewData["Title"] = "All Products";
-   //byte[] b = new byte[10];
-   //    var base64 = Convert.ToBase64String(Model.Image1 != null ? Model.Image1 : new byte[10]);
-   //    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
-}
+@*//ViewData["Title"] = "All Products";
+            //byte[] b = new byte[10];
+            //    var base64 = Convert.ToBase64String(Model.Image1 != null ? Model.Image1 : new byte[10]);
+            //    var imgSrc = String.Format("data:image/gif;base64,{0}", base64); }*@
 
 <div class="m-1">
    <h3>@Model.Title</h3>
@@ -16,9 +14,10 @@
 
 
 
-<div>
-    <a asp-controller="Product" asp-action="AddToCart" asp-route-id="@Model.Id" class="float-left m-1">Add To Cart</a>
-    <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" class="float-right m-1">Details</a>
+   <div>
+      <a asp-controller="Product" asp-action="AddToCart" asp-route-id="@Model.Id" class="float-left m-1">Add To Cart</a>
+      <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" class="float-right m-1">Details</a>
+   </div>
 </div>
 
 
