@@ -1,13 +1,11 @@
 ﻿@model List<Product>
-@{
 
-}
 @*<h3 class="main-name-header">This is the list of products</h3>*@
 <a href="@Url.Action("ShowAll", "Home")">
     <span>Order by Title</span>
 </a>
 <a href="@Url.Action("ShowAll", "Home", new { orderBy = 1 })">
-    <span>Order by Date</span>
+    <span class="ml-5">Order by Date</span>
 </a>
 <br />
 <div class="d-inline-flex p-2">
