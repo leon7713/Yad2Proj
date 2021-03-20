@@ -91,7 +91,7 @@ namespace Yad2Proj.Controllers
             _users.Update(user.Id, user);
          }
 
-         return View();
+         return View(new User());
       }
 
       public async Task<IActionResult> Logout()

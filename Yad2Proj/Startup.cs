@@ -41,7 +41,7 @@ namespace Yad2Proj
          .AddMvcOptions(options =>
          {
             options.ModelBindingMessageProvider.SetValueMustNotBeNullAccessor(
-           _ => "The field is required.");
+           _ => "Field is required.");
          });
       }
 
