@@ -2,16 +2,33 @@
 
 @{
     decimal total = 0;
+    int userId = 0;
+    if (Model.Count() > 0)
+    {
+        userId = Model.FirstOrDefault().User.Id;
+    }
+
 }
 
 <h1>My Cart</h1>
 @foreach (Product item in Model)
 {
+    var parms = new Dictionary<string, string>
+    {
+        {"productId", item.Id.ToString() },
+        {"userId", item.User.Id.ToString() }
+    };
     total += item.Price;
+<div>
     <partial name="_CartProduct" model="item" />
+    <a asp-controller="Product" asp-action="RemoveFromCart" asp-all-route-data="parms">Remove</a>
+</div>
+    
+    
 }
 
 <div>Total Price: @total</div>
+<button class="btn btn-success" asp-action="Purchase" asp-route-id="@userId">Purchase</button>
 @section Scripts {
     <script type="text/javascript" src="~/js/cart.js"></script>
 }
