@@ -1,5 +1,7 @@
 ﻿@model Product
 
+<div class="alert-success">@TempData["Message"]</div>
+
 <form asp-controller="Product" asp-action="AddItem" method="post" enctype="multipart/form-data">
    <div class="myBorder form-group">
       <div asp-validation-summary="All" class="text-danger"></div>

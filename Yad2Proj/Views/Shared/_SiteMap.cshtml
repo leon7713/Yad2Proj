@@ -1,28 +1,49 @@
-﻿<div class="myBorder">
+﻿@functions
+{
+   string GetLink(string controllerName, string actionName, string name)
+   {
+      var controller = ViewContext.RouteData.Values["Controller"];
+      var action = ViewContext.RouteData.Values["Action"];
+
+      if(action.Equals(actionName) && controller.Equals(controllerName))
+      {
+         return "<span><b>" + name + "</b></span>";
+      }
+
+      return "<a href='" + Url.Action(actionName, controllerName) + "'>" + name + "</a>";
+   }
+}
+
+<div class="myBorder">
    <h5>Site's map</h5>
-   <div>
+   <div>@Html.Raw(GetLink("Home", "AboutUs", "About us"))</div>
+   <div>@Html.Raw(GetLink("Home", "ShowAll", "Main Page"))</div>
+   <div>@Html.Raw(GetLink("Product", "Cart", "Cart"))</div>
+
+   <!--
+       <div>
       <a asp-controller="Home" asp-action="AboutUs" onfocus="" id="AboutUs">About us</a>
    </div>
-   <div>
+          <div>
       <a asp-controller="Home" asp-action="ShowAll">Main Page</a>
    </div>
 
-   
    <a asp-controller="Product" asp-action="Cart">Cart</a><br />
+    -->
+
    @if (User.Identity.IsAuthenticated)
    {
       <div>
-         <a asp-controller="Account" asp-action="PersonalDetails">Personal Details</a><br />
-
+         @Html.Raw(GetLink("Account", "PersonalDetails", "Personal Details"))
       </div>
       <div>
-         <a asp-controller="Product" asp-action="AddItem">Add item</a><br />
+         @Html.Raw(GetLink("Product", "AddItem", "Add item"))
       </div>
    }
    else
    {
       <div>
-         <a href="@Url.Action("Register", "Home")">Register</a>
+         @Html.Raw(GetLink("Home", "Register", "Register"))
       </div>
    }
 </div>
