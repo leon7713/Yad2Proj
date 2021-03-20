@@ -150,7 +150,7 @@ namespace Yad2Proj.Controllers
       public IActionResult Details(int id)
       {
          ViewBag.MainName = "More Details";
-         var productWithUser = _products.GetByIdJoin(p => p.Id == id, u => u.Owner).First();
+         var productWithUser = _products.GetByIdJoin(p => p.Id == id, u => u.Owner).FirstOrDefault();
          if (productWithUser == null)
          {
             NotFound();
