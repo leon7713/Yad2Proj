@@ -88,8 +88,8 @@ namespace Yad2Proj.Controllers
         {
             var product = _products.GetById(id);
 
-            if (product == null || product.Image1 == null)
-                return NotFound();
+         if (product == null || product.Image1 == null)
+            return base.File("~/Contents/noImg.png", "image/jpg");
 
             return new FileContentResult(product.Image1, "image/jpg");
         }
@@ -99,8 +99,8 @@ namespace Yad2Proj.Controllers
         {
             var product = _products.GetById(id);
 
-            if (product == null || product.Image2 == null)
-                return NotFound();
+         if (product == null || product.Image2 == null)
+            return base.File("~/Contents/noImg.png", "image/jpg");
 
             return new FileContentResult(product.Image2, "image/jpg");
         }
@@ -110,8 +110,8 @@ namespace Yad2Proj.Controllers
         {
             var product = _products.GetById(id);
 
-            if (product == null || product.Image3 == null)
-                return NotFound();
+         if (product == null || product.Image3 == null)
+            return base.File("~/Contents/noImg.png", "image/jpg");
 
             return new FileContentResult(product.Image3, "image/jpg");
         }
