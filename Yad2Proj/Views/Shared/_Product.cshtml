@@ -6,10 +6,12 @@
    //    var base64 = Convert.ToBase64String(Model.Image1 != null ? Model.Image1 : new byte[10]);
    //    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 }
+
 <h3>@Model.Title</h3>
 <div>@Model.Timestamp</div>
 <div>@Model.ShortDesc</div>
-<img src="/Product/GetImage1/@Model.Id" style="max-width: 100%"/>
+@*<img src="/Product/GetImage1/@Model.Id" style="max-width: 100%"/>*@
+<img src="/Product/GetImage1/@Model.Id" width="190" height="190" class="m-1"/>
 
 
 
