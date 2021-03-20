@@ -7,19 +7,20 @@
    //    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 }
 
-<h3>@Model.Title</h3>
-<div>@Model.Timestamp</div>
-<div>@Model.ShortDesc</div>
-@*<img src="/Product/GetImage1/@Model.Id" style="max-width: 100%"/>*@
-<img src="/Product/GetImage1/@Model.Id" width="190" height="190" class="m-1"/>
+<div class="m-1">
+   <h3>@Model.Title</h3>
+   <div>@Model.Timestamp</div>
+   <div>@Model.ShortDesc</div>
+   @*<img src="/Product/GetImage1/@Model.Id" style="max-width: 100%"/>*@
+   <img src="/Product/GetImage1/@Model.Id" width="180" height="180" class="m-1" />
 
 
 
-<div>
-    <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@Model.Id" class="float-left m-1">Add To Cart</a>
-    <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" class="float-right m-1">Details</a>
+   <div>
+      <a asp-controller="Home" asp-action="AddToCart" asp-route-id="@Model.Id" class="float-left m-1">Add To Cart</a>
+      <a asp-controller="Product" asp-action="Details" asp-route-id="@Model.Id" class="float-right m-1">Details</a>
+   </div>
 </div>
-
 
 
 
