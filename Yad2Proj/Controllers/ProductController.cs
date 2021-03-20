@@ -100,6 +100,28 @@ namespace Yad2Proj.Controllers
          return new FileContentResult(product.Image1, "image/jpg");
       }
 
+      [AllowAnonymous]
+      public IActionResult GetImage2(int id)
+      {
+         var product = _products.GetById(id);
+
+         if (product == null || product.Image2 == null)
+            return NotFound();
+
+         return new FileContentResult(product.Image2, "image/jpg");
+      }
+
+      [AllowAnonymous]
+      public IActionResult GetImage3(int id)
+      {
+         var product = _products.GetById(id);
+
+         if (product == null || product.Image3 == null)
+            return NotFound();
+
+         return new FileContentResult(product.Image3, "image/jpg");
+      }
+
       [HttpGet]
       [AllowAnonymous]
       public IActionResult Details(int id)
