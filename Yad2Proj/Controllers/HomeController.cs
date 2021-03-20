@@ -29,18 +29,9 @@ namespace Yad2Proj.Controllers
             _logger = logger;
             _products = products;
             _users = users;
-            //_memoryCache.Set("productsInCart", new List<Product>());
             _cart = cartProductsService;
 
-            #region Image Testing
-            //var p = products.GetById(4);
-            //FileStream fs = new FileStream(@"C:\Users\yotam\Pictures\pic.jpg", FileMode.Open, FileAccess.Read);
-            //MemoryStream ms = new MemoryStream();
-            //p.Image1 = new byte[fs.Length];
-            //fs.Read(p.Image1, 0, (int)fs.Length);
-            //ms.Write(p.Image1, 0, (int)fs.Length);
-            //_products.Update(4, p);
-            #endregion
+            
         }
 
         //[AllowAnonymous]
@@ -167,6 +158,7 @@ namespace Yad2Proj.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        
         public IActionResult Details(int id)
         {
             ViewBag.MainName = "More Details";

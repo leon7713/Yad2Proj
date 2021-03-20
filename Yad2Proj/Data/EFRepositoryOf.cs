@@ -48,7 +48,7 @@ namespace Yad2Proj.Data
         public virtual IQueryable<TEntity> GetByIdJoin(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] children)
         {
             children.ToList().ForEach(x => _dbSet.Include(x).Load());
-            return _dbSet;
+            return _dbSet.Where(filter);
         }
 
         public IQueryable<TEntity> GetAll()
