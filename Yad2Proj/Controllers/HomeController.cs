@@ -34,19 +34,12 @@ namespace Yad2Proj.Controllers
             
         }
 
-        //[AllowAnonymous]
-        [Authorize] //no controller can be accessed if the user isn't authenticated
-        public IActionResult Index()
-        {
-            ViewBag.MainName = "Main Page";
-
-            return View();
-
-            //var redirect = RedirectToAction();
-            //redirect.ActionName = "Login"; // or can use nameof("") like  nameof(YourAction);
-            //redirect.ControllerName = "Account"; // or can use nameof("") like  nameof(YourCtrl);
-            //return redirect;
-        }
+      [Authorize]
+      public IActionResult Index()
+      {
+         ViewBag.MainName = "Main Page";
+         return View();
+      }
 
         [AllowAnonymous]
         public IActionResult ShowAll()
@@ -134,67 +127,14 @@ namespace Yad2Proj.Controllers
                 }
             }
 
-            return View(user);
-        }
+         return View(user);
+      }
 
-        [Authorize] //no controller can be accessed if the user isn't authenticated
-        public IActionResult AddItem()
-        {
-            @ViewBag.MainName = "Add Item's Page";
-            Product product = new Product();
-            return View(product);
-        }
-
-        [HttpPost]
-        public IActionResult AddItem(int id, Product product)
-        {
-            ViewBag.MainName = "Add Item's Page";
-            var userId = GetUserIdFromCookie();
-            var owner = _users.GetById(int.Parse(userId));
-            product.Owner = owner;
-            _products.Create(product);
-            return View();
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        
-        public IActionResult Details(int id)
-        {
-            ViewBag.MainName = "More Details";
-            var productWithUser = _products.GetByIdJoin(p => p.Id == id, u => u.Owner).First();
-            if (productWithUser == null)
-            {
-                NotFound();
-            }
-            return View(productWithUser);
-        }
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Cart(int id)
-        {
-
-            User current = _users.GetById(int.Parse(GetUserIdFromCookie()));
-            List<Product> cart = _products.GetByIdJoin(p => p.Owner == current, u => u.Owner).ToList<Product>();
-            ViewBag.MainName = current.FirstName + "'s Cart!";
-            return View(cart);
-        }
-        public IActionResult AddToCart(int id)
-        {
-            Product productToCart = _products.GetById(id);
-            //List<Product> productsInCart = new List<Product>();
-            //_memoryCache.TryGetValue("productsInCart", out productsInCart);
-            //productsInCart.Add(productToCart);
-
-            //_memoryCache.Set("productsInCart", productsInCart);
-
-            _cart.Add(productToCart);
-
-            return RedirectToAction("ShowAll");
-        }
-        private string GetUserIdFromCookie()
-        {
-            return Request.Cookies["UserId"];
-        }
-    }
+      [AllowAnonymous]
+      public IActionResult AboutUs()
+      {
+         ViewBag.MainName = "About Us";
+         return View();
+      }
+   }
 }

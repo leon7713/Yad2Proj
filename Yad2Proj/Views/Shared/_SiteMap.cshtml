@@ -1,16 +1,28 @@
 ﻿<div class="myBorder">
    <h5>Site's map</h5>
-   <a asp-controller="Home" asp-action="ShowAll">Main Page</a><br />
+   <div>
+      <a asp-controller="Home" asp-action="AboutUs" onfocus="" id="AboutUs">About us</a>
+   </div>
+   <div>
+      <a asp-controller="Home" asp-action="ShowAll">Main Page</a>
+   </div>
 
-   <a>About us</a><br />
+   
    <a asp-controller="Home" asp-action="Cart">Cart</a><br />
    @if (User.Identity.IsAuthenticated)
    {
-      <a asp-controller="Account" asp-action="PersonalDetails">Personal Details</a><br />
-      <a asp-controller="Product" asp-action="AddItem">Add item</a><br />
+      <div>
+         <a asp-controller="Account" asp-action="PersonalDetails">Personal Details</a><br />
+
+      </div>
+      <div>
+         <a asp-controller="Product" asp-action="AddItem">Add item</a><br />
+      </div>
    }
    else
    {
-      <a href="@Url.Action("Register", "Home")">Register</a><br />
+      <div>
+         <a href="@Url.Action("Register", "Home")">Register</a>
+      </div>
    }
 </div>
