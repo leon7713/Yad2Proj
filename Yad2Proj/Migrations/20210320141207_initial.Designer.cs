@@ -10,8 +10,8 @@ using Yad2Proj.Data;
 namespace Yad2Proj.Migrations
 {
     [DbContext(typeof(ProgramDbContext))]
-    [Migration("20210317220359_remove IsUnique")]
-    partial class removeIsUnique
+    [Migration("20210320141207_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,7 +44,7 @@ namespace Yad2Proj.Migrations
                         .HasMaxLength(4000)
                         .HasColumnType("nvarchar(4000)");
 
-                    b.Property<int>("OwnerId")
+                    b.Property<int?>("OwnerId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
@@ -58,10 +58,9 @@ namespace Yad2Proj.Migrations
                     b.Property<int>("State")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Timestamp")
-                        .IsConcurrencyToken()
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("rowversion");
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("smalldatetime")
+                        .HasColumnName("Timestamp");
 
                     b.Property<string>("Title")
                         .HasMaxLength(50)
@@ -123,9 +122,7 @@ namespace Yad2Proj.Migrations
                 {
                     b.HasOne("Yad2Proj.Models.User", "Owner")
                         .WithMany("ProductsOwned")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OwnerId");
 
                     b.HasOne("Yad2Proj.Models.User", "User")
                         .WithMany("ProductsBought")

@@ -22,8 +22,8 @@ namespace Yad2Proj.Models.ProductViewModels
         [MaxLength(4000, ErrorMessage = "Long description must be 4000 characters or less")]
         public string LongDesc { get; set; }
 
-        [Timestamp]
-        public byte[] Timestamp { get; set; }
+        [Column("Timestamp", TypeName = "smalldatetime")]
+        public DateTime Timestamp { get; set; }
 
         public decimal Price { get; set; }
 

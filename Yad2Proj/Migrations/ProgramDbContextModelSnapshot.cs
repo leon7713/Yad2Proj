@@ -57,7 +57,8 @@ namespace Yad2Proj.Migrations
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Timestamp")
-                        .HasColumnType("smalldatetime");
+                        .HasColumnType("smalldatetime")
+                        .HasColumnName("Timestamp");
 
                     b.Property<string>("Title")
                         .HasMaxLength(50)

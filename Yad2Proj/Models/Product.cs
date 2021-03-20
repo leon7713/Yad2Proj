@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Yad2Proj.Models
 {
@@ -17,8 +18,8 @@ namespace Yad2Proj.Models
       public string ShortDesc { get; set; }
       [MaxLength(4000, ErrorMessage = "Long description must be 4000 characters or less")]
       public string LongDesc { get; set; }
-      [Timestamp]
-      public byte[] Timestamp { get; set; }
+      [Column("Timestamp", TypeName = "smalldatetime")]
+      public DateTime Timestamp { get; set; }
       [Range(0.01, double.MaxValue, ErrorMessage = "Price must be positive")]
       public decimal Price { get; set; }
       public byte[] Image1 { get; set; }

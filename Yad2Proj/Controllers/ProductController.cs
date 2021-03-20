@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Yad2Proj.Data;
@@ -65,7 +66,7 @@ namespace Yad2Proj.Controllers
                ShortDesc = productViewModel.ShortDesc,
                LongDesc = productViewModel.LongDesc,
                Price = productViewModel.Price,
-               Timestamp = productViewModel.Timestamp,
+               Timestamp = DateTime.Now,
                InCart = productViewModel.InCart,
                State = productViewModel.State,
             };
