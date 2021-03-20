@@ -22,8 +22,8 @@ namespace Yad2Proj.Controllers
         private readonly IRepositoryOf<int, User> _users;
         private readonly ICartProductsService _cart;
 
-        public HomeController(ILogger<HomeController> logger, 
-            IRepositoryOf<int, Product> products, IRepositoryOf<int, User> users, 
+        public HomeController(ILogger<HomeController> logger,
+            IRepositoryOf<int, Product> products, IRepositoryOf<int, User> users,
             IMemoryCache memoryCache, ICartProductsService cartProductsService)
         {
             _logger = logger;
@@ -31,24 +31,33 @@ namespace Yad2Proj.Controllers
             _users = users;
             _cart = cartProductsService;
 
-            
+
         }
 
-      [Authorize]
-      public IActionResult Index()
-      {
-         ViewBag.MainName = "Main Page";
-         return View();
-      }
+        [Authorize]
+        public IActionResult Index()
+        {
+            ViewBag.MainName = "Main Page";
+            return View();
+        }
 
         [AllowAnonymous]
-        public IActionResult ShowAll()
+        public IActionResult ShowAll(int orderBy)
         {
             ViewBag.MainName = "All Products List";
             List<Product> products = _products.GetAll().ToList<Product>();
             foreach (Product item in _cart.GetAll)
             {
                 products.RemoveAll(x => x.Id == item.Id);
+            }
+            switch (orderBy)
+            {
+                case 1:
+                    products.OrderBy(p => p.Timestamp);
+                    break;
+                default:
+                    products = products.OrderBy(p => p.Title).ToList<Product>();
+                    break;
             }
             return View(products);
         }
@@ -86,10 +95,10 @@ namespace Yad2Proj.Controllers
         {
             ViewBag.MainName = "Register";
 
-         if (ModelState.IsValid)
-         {
+            if (ModelState.IsValid)
+            {
 
-            var existUser = _users.GetAll().FirstOrDefault(u => u.UserName == user.UserName);
+                var existUser = _users.GetAll().FirstOrDefault(u => u.UserName == user.UserName);
 
                 if (existUser == null)
                 {
@@ -97,7 +106,7 @@ namespace Yad2Proj.Controllers
                     ModelState.Clear();
 
 
-               var claims = new List<Claim>
+                    var claims = new List<Claim>
                {
                    new Claim(ClaimTypes.NameIdentifier, user.UserName),
                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -127,14 +136,14 @@ namespace Yad2Proj.Controllers
                 }
             }
 
-         return View(user);
-      }
+            return View(user);
+        }
 
-      [AllowAnonymous]
-      public IActionResult AboutUs()
-      {
-         ViewBag.MainName = "About Us";
-         return View();
-      }
-   }
+        [AllowAnonymous]
+        public IActionResult AboutUs()
+        {
+            ViewBag.MainName = "About Us";
+            return View();
+        }
+    }
 }
