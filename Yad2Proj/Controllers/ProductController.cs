@@ -162,13 +162,17 @@ namespace Yad2Proj.Controllers
         }
 
         // ERROR FOR UNAUTHORIZED USERS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        [Authorize]
+        
         public IActionResult Cart(int id)
         {
             ViewBag.MainName = "More Details";
             User user = GetCurrentUser();
-            var productWithUser = _products.GetAll().Where(p => p.User == user).ToList();
-            return View(productWithUser);
+            List<Product> products = new List<Product>();
+            if (user != null)
+            {
+                products = _products.GetAll().Where(p => p.User == user).ToList();
+            }
+            return View(products);
         }
         public IActionResult AddToCart(int id)
         {

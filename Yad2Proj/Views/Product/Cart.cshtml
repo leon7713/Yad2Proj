@@ -28,8 +28,8 @@
 }
 
 <div>Total Price: @total</div>
-<button class="btn btn-success" asp-action="Purchase" asp-route-id="@userId">Purchase</button>
-@section Scripts {
-    <script type="text/javascript" src="~/js/cart.js"></script>
-}
+<button type="button" class="btn btn-success" on-click="location.href='@Url.Action("Purchase", "Product", userId)'">Purchase</button>
 
+@section Scripts {  
+<script type="text/javascript" src="~/js/cart.js"></script>
+}

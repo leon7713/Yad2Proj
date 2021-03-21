@@ -18,15 +18,15 @@ namespace Yad2Proj.Data
          _context = dbContextProvider.GetDbContext();
          _dbSet = _context.Set<TEntity>();
       }
-      public void Create(TEntity entity)
+      public TEntity Create(TEntity entity)
       {
 
          _dbSet.Add(entity);
          _context.SaveChanges();
-
+            return entity;
       }
 
-      public void Delete(TKey id)
+      public bool Delete(TKey id)
       {
          var db = _dbContextProvider.GetDbContext();
 
@@ -36,8 +36,8 @@ namespace Yad2Proj.Data
          {
             dbSet.Remove(foundEntity);
          }
-         db.SaveChanges();
-
+         int affected = db.SaveChanges();
+            return affected > 0;
       }
 
       public TEntity GetById(TKey id)

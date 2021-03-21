@@ -12,8 +12,8 @@ namespace Yad2Proj.Data
         TEntity GetById(TKey id);
         IQueryable<TEntity> GetByIdJoin(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] children);
         void Update(TKey id, TEntity Entity);
-        void Delete(TKey id);
-        void Create(TEntity Entity);
+        bool Delete(TKey id);
+        TEntity Create(TEntity Entity);
         //TEntity GetByUsernameAndPassword(string username, string password);
     }
 }

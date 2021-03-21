@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Yad2Proj.Data;
 using Yad2Proj.Models;
+using Yad2Proj.Utilities;
 
 namespace Yad2Proj.Controllers
 {
@@ -21,30 +22,38 @@ namespace Yad2Proj.Controllers
         private readonly IRepositoryOf<int, Product> _products;
         private readonly IRepositoryOf<int, User> _users;
         private readonly ICartProductsService _cart;
+        private readonly IGuestGenerator _guestGen;
 
         public HomeController(ILogger<HomeController> logger,
             IRepositoryOf<int, Product> products, IRepositoryOf<int, User> users,
-            IMemoryCache memoryCache, ICartProductsService cartProductsService)
+            IMemoryCache memoryCache, ICartProductsService cartProductsService,
+            IGuestGenerator guestGenerator)
         {
             _logger = logger;
             _products = products;
             _users = users;
             _cart = cartProductsService;
-
-
+            _guestGen = guestGenerator;
         }
 
-        [Authorize]
+
         public IActionResult Index()
         {
             ViewBag.MainName = "Main Page";
-            return View();
+
+            return RedirectToAction(nameof(ShowAll));
+
         }
 
         [AllowAnonymous]
         public IActionResult ShowAll(int orderBy)
         {
             ViewBag.MainName = "All Products List";
+            if (!User.Identity.IsAuthenticated && Request.Cookies.Where(x => x.Key == "userId").FirstOrDefault().Value == null)
+            {
+                User newGuest = _guestGen.GenUser(_users);
+                Response.Cookies.Append("UserId", $"{newGuest.Id}");
+            }
             List<Product> products = _products.GetAll().ToList<Product>();
             foreach (Product item in _cart.GetAll)
             {
@@ -145,5 +154,9 @@ namespace Yad2Proj.Controllers
             ViewBag.MainName = "About Us";
             return View();
         }
+        //private User GenerateGuestUser()
+        //{
+        //    return _guestGen.GenUser();
+        //}
     }
 }
