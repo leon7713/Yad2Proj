@@ -46,8 +46,12 @@ namespace Yad2Proj.Controllers
         }
 
         [AllowAnonymous]
-        public IActionResult ShowAll(int orderBy)
+        public IActionResult ShowAll(int orderBy, string errorMsg)
         {
+            if (errorMsg != null)
+            {
+                TempData["Message"] = errorMsg;
+            }
             ViewBag.MainName = "All Products List";
             if (!User.Identity.IsAuthenticated && Request.Cookies.Where(x => x.Key == "uid").FirstOrDefault().Value == null)
             {
@@ -57,7 +61,8 @@ namespace Yad2Proj.Controllers
             List<Product> products = _products.GetAll().ToList<Product>();
             foreach (Product item in _cart.GetAll)
             {
-                products.RemoveAll(x => x.Id == item.Id);
+                //products.RemoveAll(x => x.Id == item.Id);
+                products.Remove(products.Where(x => x.Id == item.Id).FirstOrDefault());
             }
             switch (orderBy)
             {

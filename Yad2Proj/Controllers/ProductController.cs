@@ -179,7 +179,7 @@ namespace Yad2Proj.Controllers
             Product p = _products.GetById(id);
             if (_cart.GetAll.Where(x => x.Id == id).FirstOrDefault() != null)
             {
-                return RedirectToAction("ShowAll", "Home", "The selected item is no longer available");
+                return RedirectToAction("ShowAll", "Home", new { errorMsg = "The selected item is no longer available" });
             }
             p.User = GetCurrentUser();
             _products.Update(id, p);
@@ -196,6 +196,7 @@ namespace Yad2Proj.Controllers
         }
         public IActionResult Purchase(int userId)
         {
+            userId = GetCurrentUser().Id;
             User user = _users.GetById(userId);
             List<Product> userProducts = _products.GetAll().Where(x => x.User == user).ToList();
             foreach (Product item in userProducts)

@@ -7,7 +7,7 @@
     if (Model.Count() > 0)
     {
         userId = Model.FirstOrDefault().User.Id;
-        userParms.Add("userId", userId.ToString());
+        userParms.Add("userid", userId.ToString());
     }
 
 }
@@ -30,7 +30,7 @@
 }
 
 <div>Total Price: @total</div>
-<button type="button" class="btn btn-success" id="purchaseBtn" asp-all-route-data="userParms">Purchase</button>
+<button type="button" class="btn btn-success" id="purchaseBtn" data-userId="@userId">Purchase</button>
 
 @section Scripts {  
 <script type="text/javascript" src="~/js/cart.js"></script>

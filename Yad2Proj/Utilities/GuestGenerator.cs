@@ -8,6 +8,7 @@ namespace Yad2Proj.Utilities
 {
     public class GuestGenerator : IGuestGenerator
     {
+        
         public GuestGenerator()
         {
         }
@@ -21,7 +22,8 @@ namespace Yad2Proj.Utilities
                 LastName = "guest",
                 Email = "",
                 BirthDate = DateTime.Now,
-                Password = ""
+                Password = "",
+                UserType = UserType.Guest
             };
             return usersContext.Create(user);
         }

@@ -27,13 +27,19 @@ namespace Yad2Proj.Data
             {
                 //Deleting old guests
                 var usersDb = scope.ServiceProvider.GetRequiredService<IRepositoryOf<int, User>>();
-                //List<User> oldGuests = usersDb.GetAll().Where(x => x.UserType == UserType.Guest).ToList<User>();
-                //foreach (User user in oldGuests)
-                //{
-                //    usersDb.Delete(user.Id);
-                //}
-                //Exporting all products in carts from DB on start
                 var prodsDb = scope.ServiceProvider.GetRequiredService<IRepositoryOf<int, Product>>();
+                List<User> oldGuests = usersDb.GetAll().Where(x => x.UserType == UserType.Guest).ToList<User>();
+                foreach (User user in oldGuests)
+                {
+                    var guestProducts = prodsDb.GetAll().Where(x => x.User == user).ToList<Product>();
+                    foreach (Product product in guestProducts)
+                    {
+                        product.User = null;
+                        prodsDb.Update(product.Id, product);
+                    }
+                    usersDb.Delete(user.Id);
+                }
+                //Exporting all products in carts from DB on start
                 _data.AddRange(prodsDb.GetAll().Where(x => x.User != null).ToList<Product>());
             }
         }
