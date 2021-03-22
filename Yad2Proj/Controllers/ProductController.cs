@@ -78,7 +78,7 @@ namespace Yad2Proj.Controllers
 
             _products.Create(product);
 
-            TempData["Message"] = "Product has been added";
+            TempData["Message"] = "Product has been successfully added";
 
             return RedirectToAction(nameof(AddItem));
          }
