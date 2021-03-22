@@ -9,6 +9,7 @@ namespace Yad2Proj.Utilities
     public class GuestGenerator : IGuestGenerator
     {
         
+        
         public GuestGenerator()
         {
         }

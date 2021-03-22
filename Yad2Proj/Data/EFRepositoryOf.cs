@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace Yad2Proj.Data
 {
-   public class EFRepositoryOf<TKey, TEntity> : IRepositoryOf<TKey, TEntity>
+   public class EFRepositoryOf<TKey, TEntity> : IRepositoryOf<TKey, TEntity>, IDisposable
       where TEntity : class, new()
    {
       private readonly IDbContextProvider _dbContextProvider;
@@ -62,17 +62,35 @@ namespace Yad2Proj.Data
          _context.Entry(newEntity).State = EntityState.Modified;
          _context.SaveChanges();
       }
+        private bool disposed = false;
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    _context.Dispose();
+                }
+            }
+            this.disposed = true;
+        }
 
-      //public TEntity GetByUsernameAndPassword(string username, string password)
-      //{
-      //   TEntity user;
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-      //   using (var db = _dbContextProvider.GetDbContext())
-      //   {
-      //      DbSet<TEntity> dbSet = db.Set<TEntity>();
-      //      user = dbSet.Local.SingleOrDefault(u => u)
-      //   }
-      //   return user;
-      //}
-   }
+        //public TEntity GetByUsernameAndPassword(string username, string password)
+        //{
+        //   TEntity user;
+
+        //   using (var db = _dbContextProvider.GetDbContext())
+        //   {
+        //      DbSet<TEntity> dbSet = db.Set<TEntity>();
+        //      user = dbSet.Local.SingleOrDefault(u => u)
+        //   }
+        //   return user;
+        //}
+    }
 }
