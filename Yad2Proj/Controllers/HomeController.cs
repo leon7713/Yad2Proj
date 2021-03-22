@@ -49,10 +49,10 @@ namespace Yad2Proj.Controllers
         public IActionResult ShowAll(int orderBy)
         {
             ViewBag.MainName = "All Products List";
-            if (!User.Identity.IsAuthenticated && Request.Cookies.Where(x => x.Key == "userId").FirstOrDefault().Value == null)
+            if (!User.Identity.IsAuthenticated && Request.Cookies.Where(x => x.Key == "uid").FirstOrDefault().Value == null)
             {
                 User newGuest = _guestGen.GenUser(_users);
-                Response.Cookies.Append("UserId", $"{newGuest.Id}");
+                Response.Cookies.Append("uid", $"{newGuest.Id}");
             }
             List<Product> products = _products.GetAll().ToList<Product>();
             foreach (Product item in _cart.GetAll)
@@ -134,7 +134,7 @@ namespace Yad2Proj.Controllers
                     //return LocalRedirect(model.ReturnUrl);
 
                     #region Save user id to cookie
-                    Response.Cookies.Append("UserId", $"{user.Id}");
+                    Response.Cookies.Append("uid", $"{user.Id}");
                     #endregion
 
                     return RedirectToAction("ShowAll", "Home");

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,18 +11,41 @@ namespace Yad2Proj.Data
     {
         private readonly List<Product> _data;
         public List<Product> GetAll => _data;
-        public CartProductsService()
+        private readonly IServiceScopeFactory _scopeFactory;
+
+        //Injecting IServiceScopeFactory to get IRepositoryOf
+        //because it is IRepositoryOf is scoped and ICartProductsService is singleton
+        public CartProductsService(IServiceScopeFactory scopeFactory)
         {
+            _scopeFactory = scopeFactory;
             _data = new List<Product>();
+            Init();
+        }
+        private void Init()
+        {
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                //Deleting old guests
+                var usersDb = scope.ServiceProvider.GetRequiredService<IRepositoryOf<int, User>>();
+                //List<User> oldGuests = usersDb.GetAll().Where(x => x.UserType == UserType.Guest).ToList<User>();
+                //foreach (User user in oldGuests)
+                //{
+                //    usersDb.Delete(user.Id);
+                //}
+                //Exporting all products in carts from DB on start
+                var prodsDb = scope.ServiceProvider.GetRequiredService<IRepositoryOf<int, Product>>();
+                _data.AddRange(prodsDb.GetAll().Where(x => x.User != null).ToList<Product>());
+            }
         }
 
         public void Add(Product product)
         {
             _data.Add(product);
         }
-        public void Remove(Product product)
+        public void Remove(int productId)
         {
-            _data.Remove(product);
+            Product p = _data.Where(x => x.Id == productId).FirstOrDefault();
+            _data.Remove(p);
         }
     }
 }

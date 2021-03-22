@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yad2Proj.Data;
 
 namespace Yad2Proj.Migrations
 {
     [DbContext(typeof(ProgramDbContext))]
-    partial class ProgramDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210322110615_UserType")]
+    partial class UserType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

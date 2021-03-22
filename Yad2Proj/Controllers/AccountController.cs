@@ -65,9 +65,9 @@ namespace Yad2Proj.Controllers
                 new AuthenticationProperties { IsPersistent = model.RememberLogin });
 
             #region Save user id to cookie & delete current guest
-            int.TryParse(Request.Cookies.Where(x => x.Key == "UserId").FirstOrDefault().Value, out int guestId);
+            int.TryParse(Request.Cookies.Where(x => x.Key == "uid").FirstOrDefault().Value, out int guestId);
             _users.Delete(guestId);
-            Response.Cookies.Append("UserId", $"{user.Id}");
+            Response.Cookies.Append("uid", $"{user.Id}");
             #endregion
 
             return RedirectToAction("ShowAll", "Home");
@@ -103,7 +103,7 @@ namespace Yad2Proj.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-
+            Response.Cookies.Delete("uid");
             var redirect = RedirectToAction();
             redirect.ActionName = "ShowAll";
             redirect.ControllerName = "Home";

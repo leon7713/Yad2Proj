@@ -7,6 +7,6 @@ namespace Yad2Proj.Data
     {
         List<Product> GetAll { get; }
         void Add(Product product);
-        void Remove(Product product);
+        void Remove(int productId);
     }
 }
