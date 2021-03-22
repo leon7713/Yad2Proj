@@ -4,13 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Yad2Proj.Models
 {
-    public class Product
-    {
-        [Key]
-        public int Id { get; set; }
-
-        public User Owner { get; set; }
-
+   public class Product
+   {
+      [Key]
+      public int Id { get; set; }
+      public User Owner { get; set; }
       public User User { get; set; }
       [MaxLength(50, ErrorMessage = "Title must be 50 characters or less")]
       public string Title { get; set; }
@@ -27,12 +25,12 @@ namespace Yad2Proj.Models
       public byte[] Image3 { get; set; }
       public bool InCart { get; set; }
       public State State { get; set; }
+   }
 
-    }
-    public enum State
-    {
-        Available,
-        Sold,
-        Deleted
-    }
+   public enum State
+   {
+      Available,
+      Sold,
+      Deleted
+   }
 }
