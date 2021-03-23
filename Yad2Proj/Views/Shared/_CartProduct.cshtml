@@ -1,14 +1,8 @@
 ﻿@model Product
 @{
 }
-<div class="main-products-wrapper p-2" id="cartProductsContainer">
-   <div>
+<div class="main-products-wrapper p-2 m-1" id="cartProductsContainer">
       <span class="cartToDetailsSpan" data-productid="@Model.Id">Item's name: @Model.Title</span>
-   </div>
-   <div>
-      <span>Description: @Model.ShortDesc</span>
-   </div>
-   <div>
-      <span>Price: @Model.Price</span>
-   </div>
+      <span class="ml-5">Description: @Model.ShortDesc</span>
+      <span class="ml-5">Price: @Model.Price</span>
 </div>
