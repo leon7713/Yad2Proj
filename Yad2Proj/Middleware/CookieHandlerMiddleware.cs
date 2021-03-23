@@ -35,18 +35,16 @@ namespace Yad2Proj.Middleware
                 //If normal user then we update the cookie
                 if (context.User.Identity.IsAuthenticated)
                 {
-                    string userId = context.User.FindFirst(ClaimTypes.Authentication).Value;
-                    _uidCookie = new KeyValuePair<string, string>("uid", userId);
+                    id = context.User.FindFirst(ClaimTypes.Authentication).Value;
                 }
 
                 //If guest user we create new guest
                 else
                 {
                     User guest = _guestGenerator.GenUser(dbContext);
-                    _uidCookie = new KeyValuePair<string, string>("uid", guest.Id.ToString());
                     id = guest.Id.ToString();
                 }
-                //Add the new cookie
+                //Add the new cookie to the reponse
                 _context.Response.Cookies.Append("uid", id);
             }
             await _next(context);

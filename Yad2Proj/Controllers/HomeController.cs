@@ -145,9 +145,5 @@ namespace Yad2Proj.Controllers
          ViewBag.MainName = "About Us";
          return View();
       }
-      //private User GenerateGuestUser()
-      //{
-      //    return _guestGen.GenUser();
-      //}
    }
 }
