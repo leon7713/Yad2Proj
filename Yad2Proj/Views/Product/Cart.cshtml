@@ -1,37 +1,38 @@
 ﻿@model IEnumerable<Yad2Proj.Models.Product>
 
 @{
-    decimal total = 0;
-    int userId = 0;
-    Dictionary<string, string> userParms = new Dictionary<string, string>();
-    if (Model.Count() > 0)
-    {
-        userId = Model.FirstOrDefault().User.Id;
-        userParms.Add("userid", userId.ToString());
-    }
+   decimal total = 0;
+   int userId = 0;
+   Dictionary<string, string> userParms = new Dictionary<string, string>();
+   if (Model.Count() > 0)
+   {
+      userId = Model.FirstOrDefault().User.Id;
+      userParms.Add("userid", userId.ToString());
+   }
 
 }
 
-<h1>My Cart</h1>
+@*<h1>My Cart</h1>*@
 @foreach (Product item in Model)
 {
-    var parms = new Dictionary<string, string>
-    {
+   var parms = new Dictionary<string, string>
+{
         {"productId", item.Id.ToString() },
         {"userId", item.User.Id.ToString() }
     };
-    total += item.Price;
-<div>
-    <partial name="_CartProduct" model="item" />
-    <a asp-controller="Product" asp-action="RemoveFromCart" asp-all-route-data="parms">Remove</a>
-</div>
-    
-    
+   total += item.Price;
+   <div>
+      <partial name="_CartProduct" model="item" />
+      <a asp-controller="Product" asp-action="RemoveFromCart" 
+         asp-all-route-data="parms" class="btn btn-primary ml-2">Remove</a>
+   </div>
+
+
 }
 
-<div>Total Price: @total</div>
-<button type="button" class="btn btn-success" id="purchaseBtn" data-userId="@userId">Purchase</button>
+<div class="m-2">Total Price: @total</div>
+<button type="button" class="btn btn-success m-2" id="purchaseBtn" data-userId="@userId">Purchase</button>
 
-@section Scripts {  
-<script type="text/javascript" src="~/js/cart.js"></script>
+@section Scripts {
+   <script type="text/javascript" src="~/js/cart.js"></script>
 }

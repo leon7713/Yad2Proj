@@ -117,63 +117,61 @@ namespace Yad2Proj.Controllers
          return View(productWithUser);
       }
 
-        // ERROR FOR UNAUTHORIZED USERS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        
-        public IActionResult Cart(int id)
-        {
-            ViewBag.MainName = "More Details";
-            User user = GetCurrentUser();
-            List<Product> products = new List<Product>();
-            if (user != null)
-            {
-                products = _products.GetAll().Where(p => p.User == user).ToList();
-            }
-            return View(products);
-        }
-        public IActionResult AddToCart(int id)
-        {
-            Product p = _products.GetById(id);
-            if (_cart.GetAll.Where(x => x.Id == id).FirstOrDefault() != null)
-            {
-                return RedirectToAction("ShowAll", "Home", new { errorMsg = "The selected item is no longer available" });
-            }
-            p.User = GetCurrentUser();
-            _products.Update(id, p);
-            _cart.Add(p);
-            return RedirectToAction("ShowAll", "Home");
-        }
-        public IActionResult RemoveFromCart(int productId, int userId)
-        {
-            Product p = _products.GetByIdJoin(p => p.Id == productId, u => u.User).FirstOrDefault();
-            _cart.Remove(p.Id);
-            p.User = null;
-            _products.Update(productId, p);
-            return RedirectToAction(nameof(Cart));
-        }
-        public IActionResult Purchase(int userId)
-        {
-            userId = GetCurrentUser().Id;
-            User user = _users.GetById(userId);
-            List<Product> userProducts = _products.GetAll().Where(x => x.User == user).ToList();
-            foreach (Product item in userProducts)
-            {
-                _products.Delete(item.Id);
-                _cart.Remove(item.Id);
-            }
-            return View();
-        }
-        private User GetCurrentUser()
-        {
-            int userId = 0;
-            if (User.HasClaim(p => p.Type == ClaimTypes.Authentication))
-            {
-                userId = int.Parse(User.FindFirst(ClaimTypes.Authentication).Value);
-            }
-            else
-            {
-                userId = int.Parse(Request.Cookies.Where(x => x.Key == "uid").FirstOrDefault().Value);
-            }
-            return _users.GetById(userId);
-        }
-    }
+      public IActionResult Cart(int id)
+      {
+         ViewBag.MainName = "My Cart";
+         User user = GetCurrentUser();
+         List<Product> products = new List<Product>();
+         if (user != null)
+         {
+            products = _products.GetAll().Where(p => p.User == user).ToList();
+         }
+         return View(products);
+      }
+      public IActionResult AddToCart(int id)
+      {
+         Product p = _products.GetById(id);
+         if (_cart.GetAll.Where(x => x.Id == id).FirstOrDefault() != null)
+         {
+            return RedirectToAction("ShowAll", "Home", new { errorMsg = "The selected item is no longer available" });
+         }
+         p.User = GetCurrentUser();
+         _products.Update(id, p);
+         _cart.Add(p);
+         return RedirectToAction("ShowAll", "Home");
+      }
+      public IActionResult RemoveFromCart(int productId, int userId)
+      {
+         Product p = _products.GetByIdJoin(p => p.Id == productId, u => u.User).FirstOrDefault();
+         _cart.Remove(p.Id);
+         p.User = null;
+         _products.Update(productId, p);
+         return RedirectToAction(nameof(Cart));
+      }
+      public IActionResult Purchase(int userId)
+      {
+         userId = GetCurrentUser().Id;
+         User user = _users.GetById(userId);
+         List<Product> userProducts = _products.GetAll().Where(x => x.User == user).ToList();
+         foreach (Product item in userProducts)
+         {
+            _products.Delete(item.Id);
+            _cart.Remove(item.Id);
+         }
+         return View();
+      }
+      private User GetCurrentUser()
+      {
+         int userId = 0;
+         if (User.HasClaim(p => p.Type == ClaimTypes.Authentication))
+         {
+            userId = int.Parse(User.FindFirst(ClaimTypes.Authentication).Value);
+         }
+         else
+         {
+            userId = int.Parse(Request.Cookies.Where(x => x.Key == "uid").FirstOrDefault().Value);
+         }
+         return _users.GetById(userId);
+      }
+   }
 }

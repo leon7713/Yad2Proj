@@ -108,6 +108,7 @@ namespace Yad2Proj.Controllers
 
          if (ModelState.IsValid)
          {
+            user.UserType = UserType.Normal;
             var existUser = _users.GetAll().FirstOrDefault(u => u.UserName == user.UserName);
 
             if (existUser == null)
