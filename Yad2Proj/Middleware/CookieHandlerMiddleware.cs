@@ -17,11 +17,13 @@ namespace Yad2Proj.Middleware
         private readonly IGuestGenerator _guestGenerator;
         private HttpContext _context;
         KeyValuePair<string, string> _uidCookie;
+        ICartProductsService _cart;
 
-        public CookieHandlerMiddleware(RequestDelegate next, IGuestGenerator guestGenerator)
+        public CookieHandlerMiddleware(RequestDelegate next, IGuestGenerator guestGenerator, ICartProductsService cart)
         {
             _next = next;
             _guestGenerator = guestGenerator;
+            _cart = cart;
         }
         public async Task InvokeAsync(HttpContext context, IRepositoryOf<int, User> dbContext)
         {

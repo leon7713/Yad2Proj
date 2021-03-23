@@ -169,7 +169,7 @@ namespace Yad2Proj.Controllers
          }
          else
          {
-            userId = int.Parse(Request.Cookies.Where(x => x.Key == "uid").FirstOrDefault().Value);
+            int.TryParse(Request.Cookies.Where(x => x.Key == "uid").FirstOrDefault().Value, out userId);
          }
          return _users.GetById(userId);
       }
