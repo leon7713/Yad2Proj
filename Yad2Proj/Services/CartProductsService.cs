@@ -3,9 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Yad2Proj.Data.Repository;
 using Yad2Proj.Models;
 
-namespace Yad2Proj.Data
+namespace Yad2Proj.Services
 {
     public class CartProductsService : ICartProductsService
     {

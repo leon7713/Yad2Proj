@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Yad2Proj.Data;
+using Yad2Proj.Data.Repository;
 using Yad2Proj.Models;
 
 namespace Yad2Proj.Controllers

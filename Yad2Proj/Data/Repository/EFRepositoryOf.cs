@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using Yad2Proj.Data.Context;
+using Yad2Proj.Data.Providers;
 
-namespace Yad2Proj.Data
+namespace Yad2Proj.Data.Repository
 {
    public class EFRepositoryOf<TKey, TEntity> : IRepositoryOf<TKey, TEntity>, IDisposable
       where TEntity : class, new()
@@ -81,16 +83,5 @@ namespace Yad2Proj.Data
             GC.SuppressFinalize(this);
         }
 
-        //public TEntity GetByUsernameAndPassword(string username, string password)
-        //{
-        //   TEntity user;
-
-        //   using (var db = _dbContextProvider.GetDbContext())
-        //   {
-        //      DbSet<TEntity> dbSet = db.Set<TEntity>();
-        //      user = dbSet.Local.SingleOrDefault(u => u)
-        //   }
-        //   return user;
-        //}
     }
 }

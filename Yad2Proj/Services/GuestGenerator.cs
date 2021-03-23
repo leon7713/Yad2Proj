@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Yad2Proj.Data;
+using Yad2Proj.Data.Repository;
 using Yad2Proj.Models;
 
-namespace Yad2Proj.Utilities
+namespace Yad2Proj.Services
 {
     public class GuestGenerator : IGuestGenerator
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Yad2Proj.Models;
 
-namespace Yad2Proj.Data
+namespace Yad2Proj.Services
 {
     public interface ICartProductsService
     {

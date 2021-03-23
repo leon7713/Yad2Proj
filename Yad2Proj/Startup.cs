@@ -5,11 +5,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Linq;
-using Yad2Proj.Data;
+using Yad2Proj.Data.Context;
+using Yad2Proj.Data.Providers;
+using Yad2Proj.Data.Repository;
 using Yad2Proj.Middleware;
 using Yad2Proj.Models;
-using Yad2Proj.Utilities;
+using Yad2Proj.Services;
 
 namespace Yad2Proj
 {
@@ -23,22 +24,19 @@ namespace Yad2Proj
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddControllersWithViews(o => o.Filters.Add(new AuthorizeFilter()));
             services.AddControllersWithViews();
-            services.AddMvc();
-            
+
             services.AddScoped<IDbContextProvider, DbContextProvider>();
             services.AddScoped<IRepositoryOf<int, Product>, EFRepositoryOf<int, Product>>();
             services.AddScoped<IRepositoryOf<int, User>, EFRepositoryOf<int, User>>();
-            
+
             services.AddDbContext<ProgramDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("myDb")));
-            
+
             services.AddSingleton<ICartProductsService, CartProductsService>();
             services.AddSingleton<IGuestGenerator, GuestGenerator>();
-            
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                .AddCookie();
 
@@ -53,7 +51,6 @@ namespace Yad2Proj
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -65,7 +62,10 @@ namespace Yad2Proj
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
+
+            //Custom middleware for cookie handling
             app.UseCookieHandlerMiddleware();
+
             app.UseRouting();
 
             app.UseAuthentication();
@@ -78,6 +78,6 @@ namespace Yad2Proj
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
-         
+
     }
 }

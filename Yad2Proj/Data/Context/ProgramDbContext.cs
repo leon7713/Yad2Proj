@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Yad2Proj.Models;
 
-namespace Yad2Proj.Data
+namespace Yad2Proj.Data.Context
 {
     public class ProgramDbContext : DbContext
     {

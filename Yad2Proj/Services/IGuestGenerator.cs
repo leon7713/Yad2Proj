@@ -1,7 +1,7 @@
-﻿using Yad2Proj.Data;
+﻿using Yad2Proj.Data.Repository;
 using Yad2Proj.Models;
 
-namespace Yad2Proj.Utilities
+namespace Yad2Proj.Services
 {
     public interface IGuestGenerator
     {

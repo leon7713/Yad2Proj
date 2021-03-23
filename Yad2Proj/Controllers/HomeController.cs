@@ -9,9 +9,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Yad2Proj.Data;
+using Yad2Proj.Data.Repository;
 using Yad2Proj.Models;
-using Yad2Proj.Utilities;
+using Yad2Proj.Services;
 
 namespace Yad2Proj.Controllers
 {
@@ -51,15 +51,9 @@ namespace Yad2Proj.Controllers
                 TempData["ErrorMessage"] = errorMsg;
             }
             ViewBag.MainName = "All Products List";
-            if (!User.Identity.IsAuthenticated && Request.Cookies.Where(x => x.Key == "uid").FirstOrDefault().Value == null)
-            {
-                User newGuest = _guestGen.GenUser(_users);
-                Response.Cookies.Append("uid", $"{newGuest.Id}");
-            }
             List<Product> products = _products.GetAll().ToList<Product>();
             foreach (Product item in _cart.GetAll)
             {
-                //products.RemoveAll(x => x.Id == item.Id);
                 products.Remove(products.Where(x => x.Id == item.Id).FirstOrDefault());
             }
             switch (orderBy)

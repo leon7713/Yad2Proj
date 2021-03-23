@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Yad2Proj.Data;
+using Yad2Proj.Data.Repository;
 using Yad2Proj.Models;
-using Yad2Proj.Utilities;
+using Yad2Proj.Services;
 
 namespace Yad2Proj.Middleware
 {

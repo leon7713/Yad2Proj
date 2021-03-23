@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Yad2Proj.Data
+namespace Yad2Proj.Data.Repository
 {
     public interface IRepositoryOf<TKey, TEntity>
        where TEntity : class, new()
@@ -14,6 +13,5 @@ namespace Yad2Proj.Data
         void Update(TKey id, TEntity Entity);
         bool Delete(TKey id);
         TEntity Create(TEntity Entity);
-        //TEntity GetByUsernameAndPassword(string username, string password);
     }
 }
