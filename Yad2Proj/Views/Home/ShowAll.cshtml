@@ -1,13 +1,12 @@
 ﻿@model List<Product>
-
 @*<h3 class="main-name-header">This is the list of products</h3>*@
 <a href="@Url.Action("ShowAll", "Home")">
-    <span>Order by Title</span>
+   <span>Order by Title</span>
 </a>
 <a href="@Url.Action("ShowAll", "Home", new { orderBy = 1 })">
-    <span class="ml-5">Order by Date</span>
+   <span class="ml-5">Order by Date</span>
 </a>
-<span>@TempData["Message"]</span>
+<span class="m-3">@TempData["ErrorMessage"]</span>
 <br />
 <div class="main-products-wrapper p-2">
    @foreach (var item in Model)
