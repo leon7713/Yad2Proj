@@ -16,7 +16,7 @@
    <div>@Model.User.FirstName @Model.User.LastName born at @Model.User.BirthDate Mail: @Model.User.Email</div>*@
 
 <div>@Model.ShortDesc</div>
-<div>@Model.Timestamp</div>
+<div>On the site since: @Model.Timestamp</div>
 
 <div>
    <img src="/Product/GetImage/@Model.Id?size=2" width="300" height="300" class="m-2" />
@@ -25,6 +25,6 @@
    @Model.LongDesc
 </div>
 
-<div>@Model.Price</div>
-<div>@Model.Owner.FirstName @Model.Owner.LastName born at @Model.Owner.BirthDate Mail: @Model.Owner.Email</div>
+<div class="font-weight-bold">Price: @Model.Price</div>
+<div>Owner: @Model.Owner.FirstName @Model.Owner.LastName. Born at @Model.Owner.BirthDate.ToShortDateString(). Mail: @Model.Owner.Email</div>
 
