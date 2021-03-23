@@ -48,7 +48,7 @@ namespace Yad2Proj.Controllers
         {
             if (errorMsg != null)
             {
-                TempData["Message"] = errorMsg;
+                TempData["ErrorMessage"] = errorMsg;
             }
             ViewBag.MainName = "All Products List";
             if (!User.Identity.IsAuthenticated && Request.Cookies.Where(x => x.Key == "uid").FirstOrDefault().Value == null)
@@ -108,6 +108,7 @@ namespace Yad2Proj.Controllers
 
          if (ModelState.IsValid)
          {
+            user.UserType = UserType.Normal;
             var existUser = _users.GetAll().FirstOrDefault(u => u.UserName == user.UserName);
 
             if (existUser == null)
