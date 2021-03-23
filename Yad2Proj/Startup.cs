@@ -5,7 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Linq;
 using Yad2Proj.Data;
+using Yad2Proj.Middleware;
 using Yad2Proj.Models;
 using Yad2Proj.Utilities;
 
@@ -26,13 +28,17 @@ namespace Yad2Proj
         {
             //services.AddControllersWithViews(o => o.Filters.Add(new AuthorizeFilter()));
             services.AddControllersWithViews();
+            services.AddMvc();
+            
             services.AddScoped<IDbContextProvider, DbContextProvider>();
             services.AddScoped<IRepositoryOf<int, Product>, EFRepositoryOf<int, Product>>();
             services.AddScoped<IRepositoryOf<int, User>, EFRepositoryOf<int, User>>();
+            
             services.AddDbContext<ProgramDbContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("myDb")));
+            
             services.AddSingleton<ICartProductsService, CartProductsService>();
             services.AddSingleton<IGuestGenerator, GuestGenerator>();
-            services.AddMvc();
+            
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                .AddCookie();
 
@@ -59,7 +65,7 @@ namespace Yad2Proj
                 app.UseExceptionHandler("/Home/Error");
             }
             app.UseStaticFiles();
-            
+            app.UseCookieHandlerMiddleware();
             app.UseRouting();
 
             app.UseAuthentication();
@@ -72,5 +78,6 @@ namespace Yad2Proj
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
+         
     }
 }

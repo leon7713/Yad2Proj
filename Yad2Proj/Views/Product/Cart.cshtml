@@ -28,8 +28,15 @@
     
     
 }
+@{ 
+    if (User.Identity.IsAuthenticated)
+    {
+        total = total * 90 / 100;
+    }
+}
 
-<div>Total Price: @total</div>
+<div>Total Price: @total
+</div>
 <button type="button" class="btn btn-success" id="purchaseBtn" data-userId="@userId">Purchase</button>
 
 @section Scripts {  
