@@ -20,17 +20,6 @@
    <div>@Html.Raw(GetLink("Home", "ShowAll", "Main Page"))</div>
    <div>@Html.Raw(GetLink("Product", "Cart", "Cart"))</div>
 
-   <!--
-       <div>
-      <a asp-controller="Home" asp-action="AboutUs" onfocus="" id="AboutUs">About us</a>
-   </div>
-          <div>
-      <a asp-controller="Home" asp-action="ShowAll">Main Page</a>
-   </div>
-
-   <a asp-controller="Product" asp-action="Cart">Cart</a><br />
-    -->
-
    @if (User.Identity.IsAuthenticated)
    {
       <div>

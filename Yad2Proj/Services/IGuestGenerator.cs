@@ -6,6 +6,5 @@ namespace Yad2Proj.Services
     public interface IGuestGenerator
     {
         public User GenUser(IRepositoryOf<int, User> usersContext);
-
     }
 }

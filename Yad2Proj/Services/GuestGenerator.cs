@@ -8,8 +8,6 @@ namespace Yad2Proj.Services
 {
     public class GuestGenerator : IGuestGenerator
     {
-        
-        
         public GuestGenerator()
         {
         }
